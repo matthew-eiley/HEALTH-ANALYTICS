@@ -93,36 +93,6 @@ class HeatmapVisualizer {
         return `rgb(${Math.round(rgb[0] * 255)}, ${Math.round(rgb[1] * 255)}, ${Math.round(rgb[2] * 255)})`;
     }
 
-    createMonthLabels(containerId) {
-        const monthsContainer = document.getElementById(containerId);
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 
-                       'July', 'August', 'September', 'October', 'November', 'December'];
-        const targetMonths = [0, 3, 6, 9]; // Jan, Apr, Jul, Oct (0-indexed)
-        
-        monthsContainer.innerHTML = '';
-        
-        let currentMonth = this.startDate.getMonth();
-        
-        for (let week = 0; week < 52; week++) {
-            const weekDate = new Date(this.startDate);
-            weekDate.setDate(this.startDate.getDate() + week * 7);
-            const weekMonth = weekDate.getMonth();
-            
-            if ((weekMonth !== currentMonth || week === 0) && targetMonths.includes(weekMonth)) {
-                const monthLabel = document.createElement('div');
-                monthLabel.className = 'month-label';
-                monthLabel.textContent = months[weekMonth];
-                
-                // Calculate position as percentage of total width
-                const position = (week / 52) * 100;
-                monthLabel.style.left = `${position}%`;
-                
-                monthsContainer.appendChild(monthLabel);
-            }
-            currentMonth = weekMonth;
-        }
-    }
-
     createGrid(gridId, data, metric) {
         const grid = document.getElementById(gridId);
         grid.innerHTML = '';
@@ -189,10 +159,6 @@ class HeatmapVisualizer {
     }
 
     init() {
-        // Create month labels for both heatmaps
-        this.createMonthLabels('months-hours');
-        this.createMonthLabels('months-sleep');
-        
         // Create both grids
         this.createGrid('grid-hours', hoursVsNeededGrid, 'hours');
         this.createGrid('grid-sleep', sleepConsistencyGrid, 'sleep');
