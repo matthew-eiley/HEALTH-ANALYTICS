@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 
 FILENAME = "data.csv"
@@ -12,25 +12,37 @@ def get_rGb(row, col):
 df["hours_vs_needed_rgb"] = df.apply(lambda row: get_rGb(row, "hours_vs_needed"), axis=1)
 df["sleep_consistency_rgb"] = df.apply(lambda row: get_rGb(row, "sleep_consistency"), axis=1)
 
-print(df)
-
 # grid[week][day] to access a specific cell (52 weeks, 7 days)
-grid = []
+hours_vs_needed_grid = []
 for week in range(52):
-    grid.append([])
+    hours_vs_needed_grid.append([])
     for day in range(7):
-        grid[week].append(None)
+        hours_vs_needed_grid[week].append(None)
+sleep_consistency_grid = []
+for week in range(52):
+    sleep_consistency_grid.append([])
+    for day in range(7):
+        sleep_consistency_grid[week].append(None)
 
-def get_week_and_day(date):
-    # find day
-    day = date.isocalendar().weekday - 1 # monday=0 , sunday=7
-    # find week
-    today = datetime.today()
-    today_week_number = today.isocalendar().week
-    date_week_number = date.isocalendar().week
-    if today.year == date.year:
-        week_number = 52 - (today_week_number - date_week_number)
-    else:
-        week_number = 52 - ((today_week_number + 52) - date_week_number)
-    print(week_number)
+def get_heatmap_start_date():
+    today = datetime.today().date()
+    return today - timedelta(days=364)
 
+def get_week_and_day(date, start_date):
+    days_since_start = (date - start_date).days
+    if not 0 <= days_since_start < 364:  # outside the 52-week grid
+        return None
+    week = days_since_start // 7
+    day = date.weekday()
+    return week, day
+
+def fill_grids():
+    for _, row in df.iterrows():
+        start_date = get_heatmap_start_date()
+        date = row["date"]
+        week, day = get_week_and_day(date, start_date)
+        hours_vs_needed_grid[week][day] = row["hours_vs_needed_rgb"]
+        sleep_consistency_grid[week][day] = row["sleep_consistency_rgb"]
+
+print(hours_vs_needed_grid)
+print(sleep_consistency_grid)
