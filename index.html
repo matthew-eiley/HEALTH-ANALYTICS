@@ -4,436 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Data Heatmap</title>
-    <style>
-        .heatmap-container {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .header h1 {
-            color: #24292e;
-            margin: 0 0 8px 0;
-            font-size: 28px;
-            font-weight: 600;
-        }
-        
-        .header p {
-            color: #586069;
-            margin: 0;
-            font-size: 16px;
-        }
-        
-        .heatmap-section {
-            margin-bottom: 50px;
-        }
-        
-        .section-title {
-            color: #24292e;
-            margin: 0 0 20px 0;
-            font-size: 20px;
-            font-weight: 600;
-            text-align: center;
-        }
-        
-        .heatmap-wrapper {
-            overflow-x: auto;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .heatmap {
-            display: inline-block;
-            position: relative;
-            margin: 0 auto;
-        }
-        
-        .months {
-            display: flex;
-            margin-bottom: 8px;
-            margin-left: 27px;
-        }
-        
-        .month {
-            font-size: 10px;
-            color: #586069;
-            position: absolute;
-        }
-        
-        .grid-container {
-            display: flex;
-        }
-        
-        .days-labels {
-            display: flex;
-            flex-direction: column;
-            margin-right: 8px;
-            margin-top: 15px;
-        }
-        
-        .day-label {
-            height: 11px;
-            font-size: 9px;
-            color: #586069;
-            display: flex;
-            align-items: center;
-            margin-bottom: 2px;
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(52, 11px);
-            grid-template-rows: repeat(7, 11px);
-            gap: 2px;
-            margin-top: 15px;
-        }
-        
-        .cell {
-            width: 11px;
-            height: 11px;
-            border-radius: 2px;
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .cell:hover {
-            stroke: rgba(0,0,0,0.3);
-            stroke-width: 1px;
-        }
-        
-        .legend {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3px;
-            margin-bottom: 20px;
-            font-size: 11px;
-            color: #586069;
-        }
-        
-        .legend-item {
-            width: 11px;
-            height: 11px;
-            border-radius: 2px;
-        }
-        
-        .tooltip {
-            position: absolute;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            pointer-events: none;
-            z-index: 1000;
-            white-space: nowrap;
-            transform: translate(-50%, -100%);
-            margin-top: -8px;
-        }
-        
-        .tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 4px solid transparent;
-            border-top-color: rgba(0,0,0,0.8);
-        }
-        
-        .description {
-            padding: 15px;
-            background: #f6f8fa;
-            border-radius: 6px;
-            font-size: 13px;
-            color: #24292e;
-        }
-        
-        .description h3 {
-            margin: 0 0 10px 0;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .description ul {
-            margin: 8px 0;
-            padding-left: 20px;
-        }
-        
-        .description li {
-            margin: 4px 0;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="heatmap-container">
-        <div class="header">
+    <div class="container">
+        <header class="main-header">
             <h1>Personal Data Heatmap</h1>
             <p>Track your daily metrics with GitHub-style visualizations</p>
-        </div>
+        </header>
         
         <!-- Hours vs Needed Heatmap -->
-        <div class="heatmap-section">
-            <h2 class="section-title">Hours vs Needed</h2>
-            <div class="heatmap-wrapper">
-                <div class="heatmap">
-                    <div class="months" id="months-hours"></div>
-                    <div class="grid-container">
-                        <div class="days-labels">
-                            <div class="day-label">Mon</div>
-                            <div class="day-label"></div>
-                            <div class="day-label">Wed</div>
-                            <div class="day-label"></div>
-                            <div class="day-label">Fri</div>
-                            <div class="day-label"></div>
-                            <div class="day-label">Sun</div>
-                        </div>
+        <section class="heatmap-section">
+            <div class="section-header">
+                <h2>Hours vs Needed</h2>
+                <p>Track how well you meet your sleep hour goals</p>
+            </div>
+            
+            <div class="heatmap-container">
+                <div class="months-row" id="months-hours"></div>
+                <div class="heatmap-grid">
+                    <div class="days-column">
+                        <div class="day-label">Mon</div>
+                        <div class="day-label">Tue</div>
+                        <div class="day-label">Wed</div>
+                        <div class="day-label">Thu</div>
+                        <div class="day-label">Fri</div>
+                        <div class="day-label">Sat</div>
+                        <div class="day-label">Sun</div>
+                    </div>
+                    <div class="grid-area">
                         <div class="grid" id="grid-hours"></div>
                     </div>
-                    <div class="legend">
-                        <span>Worse</span>
-                        <div class="legend-item" style="background-color: #ebedf0;"></div>
-                        <div class="legend-item" style="background-color: rgb(240, 242, 245);"></div>
-                        <div class="legend-item" style="background-color: rgb(186, 230, 191);"></div>
-                        <div class="legend-item" style="background-color: rgb(109, 191, 116);"></div>
-                        <div class="legend-item" style="background-color: rgb(83, 162, 88);"></div>
-                        <div class="legend-item" style="background-color: rgb(46, 97, 48);"></div>
-                        <span>Better</span>
-                    </div>
                 </div>
             </div>
             
-            <div class="description">
+            <div class="chart-explanation">
                 <h3>How to Read This Chart</h3>
-                <p>Each square represents a day. The color intensity shows how well you met your sleep hour goals:</p>
-                <ul>
-                    <li><strong>Dark green:</strong> Excellent (92.5%+ of needed hours)</li>
-                    <li><strong>Medium green:</strong> Good (85-92.5% of needed hours)</li>
-                    <li><strong>Light green:</strong> Fair (77.5-85% of needed hours)</li>
-                    <li><strong>Very light green:</strong> Poor (70-77.5% of needed hours)</li>
-                    <li><strong>Gray:</strong> Very poor (&lt;70% of needed hours) or no data</li>
-                </ul>
+                <div class="explanation-content">
+                    <p>Each square represents a day. The color intensity shows how well you met your sleep hour goals:</p>
+                    
+                    <div class="legend-container">
+                        <div class="legend-scale">
+                            <span class="scale-label">Worse</span>
+                            <div class="legend-items">
+                                <div class="legend-item" data-level="none"></div>
+                                <div class="legend-item" data-level="very-poor"></div>
+                                <div class="legend-item" data-level="poor"></div>
+                                <div class="legend-item" data-level="fair"></div>
+                                <div class="legend-item" data-level="good"></div>
+                                <div class="legend-item" data-level="excellent"></div>
+                            </div>
+                            <span class="scale-label">Better</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="performance-levels">
+                        <li><span class="level-indicator excellent"></span><strong>Excellent:</strong> 92.5%+ of needed hours</li>
+                        <li><span class="level-indicator good"></span><strong>Good:</strong> 85-92.5% of needed hours</li>
+                        <li><span class="level-indicator fair"></span><strong>Fair:</strong> 77.5-85% of needed hours</li>
+                        <li><span class="level-indicator poor"></span><strong>Poor:</strong> 70-77.5% of needed hours</li>
+                        <li><span class="level-indicator very-poor"></span><strong>Very Poor:</strong> &lt;70% of needed hours or no data</li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        </section>
         
         <!-- Sleep Consistency Heatmap -->
-        <div class="heatmap-section">
-            <h2 class="section-title">Sleep Consistency</h2>
-            <div class="heatmap-wrapper">
-                <div class="heatmap">
-                    <div class="months" id="months-sleep"></div>
-                    <div class="grid-container">
-                        <div class="days-labels">
-                            <div class="day-label">Mon</div>
-                            <div class="day-label"></div>
-                            <div class="day-label">Wed</div>
-                            <div class="day-label"></div>
-                            <div class="day-label">Fri</div>
-                            <div class="day-label"></div>
-                            <div class="day-label">Sun</div>
-                        </div>
-                        <div class="grid" id="grid-sleep"></div>
+        <section class="heatmap-section">
+            <div class="section-header">
+                <h2>Sleep Consistency</h2>
+                <p>Monitor your sleep schedule consistency</p>
+            </div>
+            
+            <div class="heatmap-container">
+                <div class="months-row" id="months-sleep"></div>
+                <div class="heatmap-grid">
+                    <div class="days-column">
+                        <div class="day-label">Mon</div>
+                        <div class="day-label">Tue</div>
+                        <div class="day-label">Wed</div>
+                        <div class="day-label">Thu</div>
+                        <div class="day-label">Fri</div>
+                        <div class="day-label">Sat</div>
+                        <div class="day-label">Sun</div>
                     </div>
-                    <div class="legend">
-                        <span>Worse</span>
-                        <div class="legend-item" style="background-color: #ebedf0;"></div>
-                        <div class="legend-item" style="background-color: rgb(240, 242, 245);"></div>
-                        <div class="legend-item" style="background-color: rgb(186, 230, 191);"></div>
-                        <div class="legend-item" style="background-color: rgb(109, 191, 116);"></div>
-                        <div class="legend-item" style="background-color: rgb(83, 162, 88);"></div>
-                        <div class="legend-item" style="background-color: rgb(46, 97, 48);"></div>
-                        <span>Better</span>
+                    <div class="grid-area">
+                        <div class="grid" id="grid-sleep"></div>
                     </div>
                 </div>
             </div>
             
-            <div class="description">
+            <div class="chart-explanation">
                 <h3>How to Read This Chart</h3>
-                <p>Each square represents a day. The color intensity shows your sleep schedule consistency:</p>
-                <ul>
-                    <li><strong>Dark green:</strong> Excellent consistency (90%+ consistency score)</li>
-                    <li><strong>Medium green:</strong> Good consistency (80-90% consistency score)</li>
-                    <li><strong>Light green:</strong> Fair consistency (70-80% consistency score)</li>
-                    <li><strong>Very light green:</strong> Poor consistency (60-70% consistency score)</li>
-                    <li><strong>Gray:</strong> Very poor consistency (&lt;60% consistency score) or no data</li>
-                </ul>
+                <div class="explanation-content">
+                    <p>Each square represents a day. The color intensity shows your sleep schedule consistency:</p>
+                    
+                    <div class="legend-container">
+                        <div class="legend-scale">
+                            <span class="scale-label">Worse</span>
+                            <div class="legend-items">
+                                <div class="legend-item" data-level="none"></div>
+                                <div class="legend-item" data-level="very-poor"></div>
+                                <div class="legend-item" data-level="poor"></div>
+                                <div class="legend-item" data-level="fair"></div>
+                                <div class="legend-item" data-level="good"></div>
+                                <div class="legend-item" data-level="excellent"></div>
+                            </div>
+                            <span class="scale-label">Better</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="performance-levels">
+                        <li><span class="level-indicator excellent"></span><strong>Excellent:</strong> 90%+ consistency score</li>
+                        <li><span class="level-indicator good"></span><strong>Good:</strong> 80-90% consistency score</li>
+                        <li><span class="level-indicator fair"></span><strong>Fair:</strong> 70-80% consistency score</li>
+                        <li><span class="level-indicator poor"></span><strong>Poor:</strong> 60-70% consistency score</li>
+                        <li><span class="level-indicator very-poor"></span><strong>Very Poor:</strong> &lt;60% consistency score or no data</li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
-
-    <script>
-        // Sample data - replace with your actual data
-        const hoursVsNeededGrid = [
-            // First 48 weeks are empty (None values)
-            ...Array(48).fill(null).map(() => Array(7).fill(null)),
-            // Week 49: partial data
-            [null, null, null, null, null, [0.18, 0.38, 0.188], [0.325, 0.635, 0.345]],
-            // Week 50: full week
-            [[0.729, 0.925, 0.749], [0.325, 0.635, 0.345], [0.427, 0.749, 0.455], [0.427, 0.749, 0.455], [0.325, 0.635, 0.345], [0.18, 0.38, 0.188], [0.941, 0.949, 0.961]],
-            // Week 51: full week
-            [[0.325, 0.635, 0.345], [0.18, 0.38, 0.188], [0.325, 0.635, 0.345], [0.729, 0.925, 0.749], [0.427, 0.749, 0.455], [0.325, 0.635, 0.345], [0.325, 0.635, 0.345]],
-            // Week 52: partial data
-            [[0.729, 0.925, 0.749], [0.729, 0.925, 0.749], null, null, null, null, null]
-        ];
-
-        const sleepConsistencyGrid = [
-            // First 48 weeks are empty (None values)
-            ...Array(48).fill(null).map(() => Array(7).fill(null)),
-            // Week 49: partial data
-            [null, null, null, null, null, [0.941, 0.949, 0.961], [0.941, 0.949, 0.961]],
-            // Week 50: full week
-            [[0.427, 0.749, 0.455], [0.729, 0.925, 0.749], [0.325, 0.635, 0.345], [0.427, 0.749, 0.455], [0.325, 0.635, 0.345], [0.427, 0.749, 0.455], [0.941, 0.949, 0.961]],
-            // Week 51: full week
-            [[0.729, 0.925, 0.749], [0.427, 0.749, 0.455], [0.427, 0.749, 0.455], [0.325, 0.635, 0.345], [0.325, 0.635, 0.345], [0.427, 0.749, 0.455], [0.325, 0.635, 0.345]],
-            // Week 52: partial data
-            [[0.325, 0.635, 0.345], [0.427, 0.749, 0.455], null, null, null, null, null]
-        ];
-
-        let tooltip = null;
-
-        function getStartDate() {
-            const today = new Date();
-            const thisMonday = new Date(today);
-            thisMonday.setDate(today.getDate() - today.getDay() + 1);
-            const startDate = new Date(thisMonday);
-            startDate.setDate(thisMonday.getDate() - 51 * 7);
-            return startDate;
-        }
-
-        function getDateForCell(week, day) {
-            const startDate = getStartDate();
-            const date = new Date(startDate);
-            date.setDate(startDate.getDate() + week * 7 + day);
-            return date;
-        }
-
-        function formatDate(date) {
-            return date.toLocaleDateString('en-US', {
-                weekday: 'short',
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-            });
-        }
-
-        function getPerformanceLevel(rgb, metric) {
-            if (!rgb) return 'No data';
-            const [r, g, b] = rgb;
-            
-            if (metric === 'hours') {
-                if (r < 0.2 && g < 0.4 && b < 0.2) return 'Excellent (92.5%+)';
-                if (r < 0.35 && g < 0.65 && b < 0.35) return 'Good (85-92.5%)';
-                if (r < 0.45 && g < 0.75 && b < 0.46) return 'Fair (77.5-85%)';
-                if (r < 0.75 && g > 0.9 && b < 0.75) return 'Poor (70-77.5%)';
-                return 'Very Poor (<70%)';
-            } else {
-                if (r < 0.2 && g < 0.4 && b < 0.2) return 'Excellent (90%+)';
-                if (r < 0.35 && g < 0.65 && b < 0.35) return 'Good (80-90%)';
-                if (r < 0.45 && g < 0.75 && b < 0.46) return 'Fair (70-80%)';
-                if (r < 0.75 && g > 0.9 && b < 0.75) return 'Poor (60-70%)';
-                return 'Very Poor (<60%)';
-            }
-        }
-
-        function rgbToString(rgb) {
-            if (!rgb) return '#ebedf0';
-            return `rgb(${Math.round(rgb[0] * 255)}, ${Math.round(rgb[1] * 255)}, ${Math.round(rgb[2] * 255)})`;
-        }
-
-        function createMonthLabels(containerId) {
-            const monthsContainer = document.getElementById(containerId);
-            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            const startDate = getStartDate();
-            let currentMonth = startDate.getMonth();
-            
-            monthsContainer.innerHTML = '';
-            
-            for (let week = 0; week < 52; week++) {
-                const weekDate = new Date(startDate);
-                weekDate.setDate(startDate.getDate() + week * 7);
-                const weekMonth = weekDate.getMonth();
-                
-                if (weekMonth !== currentMonth || week === 0) {
-                    const monthLabel = document.createElement('div');
-                    monthLabel.className = 'month';
-                    monthLabel.textContent = months[weekMonth];
-                    monthLabel.style.left = `${week * 13}px`;
-                    monthsContainer.appendChild(monthLabel);
-                    currentMonth = weekMonth;
-                }
-            }
-        }
-
-        function createGrid(gridId, data, metric) {
-            const grid = document.getElementById(gridId);
-            grid.innerHTML = '';
-            
-            // Create cells in column-major order (weeks as columns)
-            // Days are ordered Monday (0) to Sunday (6)
-            for (let week = 0; week < 52; week++) {
-                for (let day = 0; day < 7; day++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell';
-                    
-                    const cellData = data[week] ? data[week][day] : null;
-                    const cellDate = getDateForCell(week, day);
-                    
-                    cell.style.backgroundColor = rgbToString(cellData);
-                    cell.style.gridColumn = week + 1;
-                    cell.style.gridRow = day + 1; // Monday = 1, Sunday = 7
-                    
-                    // Add hover events
-                    cell.addEventListener('mouseenter', (e) => showTooltip(e, cellDate, cellData, metric));
-                    cell.addEventListener('mouseleave', hideTooltip);
-                    
-                    grid.appendChild(cell);
-                }
-            }
-        }
-
-        function showTooltip(event, date, data, metric) {
-            hideTooltip();
-            
-            tooltip = document.createElement('div');
-            tooltip.className = 'tooltip';
-            tooltip.innerHTML = `
-                <div style="font-weight: bold;">${formatDate(date)}</div>
-                <div>${getPerformanceLevel(data, metric)}</div>
-            `;
-            
-            document.body.appendChild(tooltip);
-            
-            const rect = event.target.getBoundingClientRect();
-            tooltip.style.left = `${rect.left + rect.width / 2}px`;
-            tooltip.style.top = `${rect.top}px`;
-        }
-
-        function hideTooltip() {
-            if (tooltip) {
-                tooltip.remove();
-                tooltip = null;
-            }
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            // Create month labels for both heatmaps
-            createMonthLabels('months-hours');
-            createMonthLabels('months-sleep');
-            
-            // Create both grids
-            createGrid('grid-hours', hoursVsNeededGrid, 'hours');
-            createGrid('grid-sleep', sleepConsistencyGrid, 'sleep');
-        });
-    </script>
+    
+    <div id="tooltip" class="tooltip"></div>
+    <script src="script.js"></script>
 </body>
 </html>
