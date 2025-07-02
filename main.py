@@ -1,4 +1,8 @@
 from datetime import datetime
+import pandas as pd
+import os
+
+FILENAME = "data.csv"
 
 def get_date():
     date = input("Input the date for which you are entering values.\nIf you just want to use today's date, press enter.\nIf you want to use a different date, enter it in the form mm/dd/yyyy:\n")
@@ -9,27 +13,27 @@ def get_date():
         date = datetime(month=int(specs[0]), day=int(specs[1]), year=int(specs[2]))
     return date
 
-def get_hours_v_needed():
-    return int(input("\nInput the % value for the amount of sleep you got, versus how much you needed:\n"))
-
-def get_sleep_consistency():
-    return int(input("\nInput the % value for your sleep consistency:\n"))
-
-def get_recovery():
-    return int(input("\nInput the % value for your recovery:\n"))
-
-def get_strain():
-    return int(input("\nInput the value for your strain:\n"))
-
-def get_hrv():
-    return int(input("\nInput the ms value for your heart rate variability:\n"))
+def get_int_input(prompt):
+    return int(input(prompt + ":\n"))
 
 def main():
-    date = get_date()
-    hours_v_needed = get_hours_v_needed()
-    sleep_consistency = get_sleep_consistency()
-    recovery = get_recovery()
-    strain = get_strain()
-    hrv = get_hrv()
+    entry = {
+        "date": get_date(),
+        "hours_vs_needed": get_int_input("Sleep vs needed (%)"),
+        "sleep_consistency": get_int_input("Sleep consistency (%)"),
+        "recovery": get_int_input("Recovery (%)"),
+        "strain": get_int_input("Strain"),
+        "hrv": get_int_input("Heart Rate Variability (ms)")
+    }
+
+    if os.path.exists(FILENAME):
+        df = pd.read_csv(FILENAME, parse_dates=["date"])
+    else:
+        df = pd.DataFrame(columns=entry.keys())
+    df = df[df["date"] != pd.to_datetime(entry["date"])]
+    df = pd.concat([df, pd.DataFrame([entry])], ignore_index=True)
+    df.sort_values("date", inplace=True)
+    df.to_csv(FILENAME, index=False)
+    print("Entry saved.")
 
 main()
