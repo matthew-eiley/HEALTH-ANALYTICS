@@ -1,77 +1,378 @@
-.grid {
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+    line-height: 1.6;
+    color: #24292e;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  /* Header styles */
+  .main-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+  
+  .main-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  
+  .main-header p {
+    font-size: 1.1rem;
+    color: #6a737d;
+    font-weight: 400;
+  }
+  
+  /* Section styles */
+  .heatmap-section {
+    margin-bottom: 4rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #24292e;
+    margin-bottom: 0.5rem;
+  }
+  
+  .section-header p {
+    color: #6a737d;
+    font-size: 1rem;
+  }
+  
+  /* Heatmap container */
+  .heatmap-container {
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+  }
+  
+  .heatmap-grid {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .days-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-width: 2.5rem;
+    padding-top: 1rem;
+  }
+  
+  .day-label {
+    font-size: 0.75rem;
+    color: #6a737d;
+    font-weight: 500;
+    text-align: right;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .grid-area {
+    flex: 1;
+    overflow-x: auto;
+  }
+  
+  .grid {
     display: grid;
-    grid-template-columns: repeat(52, 1fr);
+    grid-template-columns: repeat(52, minmax(12px, 1fr));
     grid-template-rows: repeat(7, 12px);
     gap: 2px;
-    min-width: 100%;
+    width: 100%;
     padding: 0.5rem 0;
-    aspect-ratio: 52/7;
-}
-
-.cell {
+  }
+  
+  .cell {
     width: 100%;
     height: 100%;
     border-radius: 2px;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-}
-
-.months-row {
-    display: none;
-}
-
-.legend-item[data-level="very-poor"],
-.cell[data-level="very-poor"] {
-    background-color: rgb(200, 205, 210);
-}
-
-.legend-item[data-level="poor"],
-.cell[data-level="poor"] {
-    background-color: rgb(219, 232, 242);
-}
-
-.legend-item[data-level="moderate"],
-.cell[data-level="moderate"] {
-    background-color: rgb(153, 217, 234);
-}
-
-.legend-item[data-level="good"],
-.cell[data-level="good"] {
-    background-color: rgb(51, 153, 255);
-}
-
-.legend-item[data-level="excellent"],
-.cell[data-level="excellent"] {
-    background-color: rgb(25, 77, 153);
-}
-
-.cell.today {
+  }
+  
+  .cell:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    border-radius: 3px;
+  }
+  
+  .cell.today {
     box-shadow: 0 0 0 2px #2d5a27;
-}
-
-.chart-explanation {
+  }
+  
+  /* Chart explanation */
+  .chart-explanation {
     background: #f8f9fa;
     border-radius: 12px;
     padding: 1.5rem;
-}
-
-.level-indicator.very-poor {
-    background-color: rgb(200, 205, 210);
-}
-
-.level-indicator.poor {
-    background-color: rgb(219, 232, 242);
-}
-
-.level-indicator.moderate {
-    background-color: rgb(153, 217, 234);
-}
-
-.level-indicator.good {
-    background-color: rgb(51, 153, 255);
-}
-
-.level-indicator.excellent {
-    background-color: rgb(25, 77, 153);
-}
+  }
+  
+  .chart-explanation h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #24292e;
+  }
+  
+  .explanation-content p {
+    margin-bottom: 1.5rem;
+    color: #586069;
+  }
+  
+  /* Legend styles */
+  .legend-container {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .legend-scale {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .scale-label {
+    font-size: 0.75rem;
+    color: #6a737d;
+    font-weight: 500;
+  }
+  
+  .legend-items {
+    display: flex;
+    gap: 2px;
+  }
+  
+  .legend-item {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    transition: transform 0.2s ease;
+  }
+  
+  .legend-item:hover {
+    transform: scale(1.2);
+  }
+  
+  /* Color definitions - matching your Python RGB values */
+  .legend-item[data-level="none"],
+  .cell[data-level="none"] {
+    background-color: #ebedf0;
+  }
+  
+  .legend-item[data-level="very-poor"],
+  .cell[data-level="very-poor"] {
+    background-color: rgb(240, 242, 245);
+  }
+  
+  .legend-item[data-level="poor"],
+  .cell[data-level="poor"] {
+    background-color: rgb(186, 236, 191);
+  }
+  
+  .legend-item[data-level="fair"],
+  .cell[data-level="fair"] {
+    background-color: rgb(109, 191, 116);
+  }
+  
+  .legend-item[data-level="good"],
+  .cell[data-level="good"] {
+    background-color: rgb(83, 162, 88);
+  }
+  
+  .legend-item[data-level="excellent"],
+  .cell[data-level="excellent"] {
+    background-color: rgb(46, 97, 48);
+  }
+  
+  /* Performance levels list */
+  .performance-levels {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.75rem;
+  }
+  
+  .performance-levels li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+  
+  .level-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  
+  .level-indicator.excellent {
+    background-color: rgb(46, 97, 48);
+  }
+  
+  .level-indicator.good {
+    background-color: rgb(83, 162, 88);
+  }
+  
+  .level-indicator.fair {
+    background-color: rgb(109, 191, 116);
+  }
+  
+  .level-indicator.poor {
+    background-color: rgb(186, 236, 191);
+  }
+  
+  .level-indicator.very-poor {
+    background-color: rgb(240, 242, 245);
+  }
+  
+  /* Tooltip */
+  .tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0;
+    transform: translate(-50%, -100%) scale(0.8);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 200px;
+    text-align: center;
+  }
+  
+  .tooltip.visible {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1);
+  }
+  
+  .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+  }
+  
+  .tooltip-date {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  
+  .tooltip-performance {
+    font-size: 0.75rem;
+    opacity: 0.9;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+    }
+  
+    .main-header h1 {
+      font-size: 2rem;
+    }
+  
+    .heatmap-section {
+      padding: 1.5rem;
+    }
+  
+    .performance-levels {
+      grid-template-columns: 1fr;
+    }
+  
+    .legend-scale {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .days-column {
+      min-width: 2rem;
+    }
+  
+    .day-label {
+      font-size: 0.65rem;
+    }
+  
+    .grid {
+      grid-template-rows: repeat(7, 10px);
+      grid-template-columns: repeat(52, minmax(10px, 1fr));
+    }
+  }
+  
+  /* Animation for loading */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .heatmap-section {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  .heatmap-section:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  
