@@ -281,12 +281,35 @@ st.markdown("""
     /* Section headers */
     .section-header {
         background: linear-gradient(45deg, #2e6130 0%, #baecbf 100%);
-        padding: 1.5rem 2rem;
+        padding: 1rem 1.5rem;
         border-radius: 12px;
         margin: 2rem 0 1rem 0;
         color: white;
         text-align: center;
     }
+    .left-header {
+        background: linear-gradient(90deg, #baecbf 0%, #2e6130 100%);
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        margin: 2rem 0 1rem 0;
+        color: white;
+        text-align: center;
+    }
+    .right-header {
+        background: linear-gradient(90deg, #2e6130 0%, #baecbf 100%);
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        margin: 2rem 0 1rem 0;
+        color: white;
+        text-align: center;
+    }
+
+    .subsection-title {
+        font-size: 1rem;
+        margin: 0;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
     
     .section-title {
         font-size: 2rem;
@@ -358,7 +381,7 @@ st.markdown("""
         color: #2e6130 !important;
         padding: 0.8rem 1.5rem;
         border-radius: 25px;
-        text-decoration: none;
+        text-decoration: none !important;
         font-weight: 500;
         display: inline-block;
         margin: 1rem 0;
@@ -368,9 +391,8 @@ st.markdown("""
     
     .doc-link:hover {
         transform: translateY(-2px);
-        text-decoration: none;
-        color: #baecbf !important;
-        box-shadow: 0 3px 15px #baecbf;
+        color: rgb(109, 191, 116) !important;
+        box-shadow: 0 3px 15px rgb(109, 191, 116);
 
     }
     
@@ -445,34 +467,6 @@ def plot_heatmap(grid):
     plt.tight_layout()
     
     return fig
-
-def display_sleep_insights(stats):
-    if stats is None:
-        return
-    
-    st.markdown('<h3 class="insights-title">💤 Sleep Performance Insights</h3>', unsafe_allow_html=True)
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("#### 🛌 Sleep Sufficiency Performance")
-        avg_hours = stats['avg_hours_vs_needed']
-        if avg_hours >= 85:
-            st.success(f"🌟 Optimal! My average sleep duration this week is {avg_hours:.2f}%")
-        elif avg_hours >= 70:
-            st.info(f"✅ Sufficient! My average sleep duration this week is {avg_hours:.2f}%")
-        else:
-            st.warning(f"⚠️ Poor. My average sleep duration this week is {avg_hours:.2f}%")
-    
-    with col2:
-        st.markdown("#### ⏰ Sleep Consistency Performance")
-        avg_consistency = stats['avg_sleep_consistency']
-        if avg_consistency >= 80:
-            st.success(f"🌟 Optimal! My average sleep consistency this week is {avg_consistency:.2f}%")
-        elif avg_consistency >= 70:
-            st.info(f"✅ Sufficient! My average sleep consistency this week is {avg_consistency:.2f}%")
-        else:
-            st.warning(f"⚠️ Poor. My average sleep consistency this week is {avg_consistency:.2f}%")
     
 def main_app():
     # Header section
@@ -523,7 +517,7 @@ def main_app():
     # Sleep section
     st.markdown("""
     <div class="section-header">
-        <h2 class="section-title">😴 Sleep Performance</h2>
+        <h2 class="section-title">🛏️ Sleep Performance</h2>
     </div>
     """, unsafe_allow_html=True)
     
@@ -546,28 +540,57 @@ def main_app():
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("""
-    <a href="https://support.whoop.com/s/article/WHOOP-Sleep?language=en_US" class="doc-link" target="_blank">
-        📚 DOCUMENTATION →
-    </a>
-    """, unsafe_allow_html=True)
-    
-    # Heatmaps with better spacing
-    st.markdown("### 📈 Sleep Sufficiency Heatmap")
-    fig1 = plot_heatmap(hours_vs_needed_grid)
-    st.pyplot(fig1, use_container_width=True)
-    
-    st.markdown("### 📈 Sleep Consistency Heatmap")
-    fig2 = plot_heatmap(sleep_consistency_grid)
-    st.pyplot(fig2, use_container_width=True)
-        
-    # Display insights
-    display_sleep_insights(stats)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("""
+            <div class="left-header">
+                <h2 class="subsection-title">😴 Sleep Sufficiency</h2>
+            </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="text-align: center;">
+            <a href="https://www.whoop.com/us/en/thelocker/how-much-sleep-do-i-need/?srsltid=AfmBOoo1g8Wxz-9LwJZsyYMWgTiI9bVAE8jH6TXdonBwJTdsJ-49DJQY" class="doc-link" target="_blank">
+                📚 DOCUMENTATION &rarr;
+            </a>
+        </div>
+        """, unsafe_allow_html=True)
+        fig1 = plot_heatmap(hours_vs_needed_grid)
+        st.pyplot(fig1, use_container_width=True)
+        avg_hours = stats['avg_hours_vs_needed']
+        if avg_hours >= 85:
+            st.success(f"🌟 Optimal! My average sleep sufficiency this week is {avg_hours:.2f}%")
+        elif avg_hours >= 70:
+            st.info(f"✅ Sufficient! My average sleep sufficiency this week is {avg_hours:.2f}%")
+        else:
+            st.warning(f"⚠️ Poor. My average sleep sufficiency this week is {avg_hours:.2f}%")
+    with col2:
+        st.markdown("""
+            <div class="right-header">
+                <h2 class="subsection-title">⏰ Sleep Consistency</h2>
+            </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div style="text-align: center;">
+            <a href="https://www.whoop.com/us/en/thelocker/new-feature-sleep-consistency-why-we-track-it/?srsltid=AfmBOoptQmcwOq7fRmA_bREINiwvGZkwuZUvaNW_OVazsHdu2omb-FPj" class="doc-link" target="_blank">
+                📚 DOCUMENTATION &rarr;
+            </a>        
+        </div>
+        """, unsafe_allow_html=True)
+        fig2 = plot_heatmap(sleep_consistency_grid)
+        st.pyplot(fig2, use_container_width=True)
+        avg_consistency = stats['avg_sleep_consistency']
+        if avg_consistency >= 80:
+            st.success(f"🌟 Optimal! My average sleep consistency this week is {avg_consistency:.2f}%")
+        elif avg_consistency >= 70:
+            st.info(f"✅ Sufficient! My average sleep consistency this week is {avg_consistency:.2f}%")
+        else:
+            st.warning(f"⚠️ Poor. My average sleep consistency this week is {avg_consistency:.2f}%")
         
     # Recovery and Strain section
     st.markdown("""
     <div class="section-header">
-        <h2 class="section-title">🔋 Recovery and Strain</h2>
+        <h2 class="section-title">🥇 Recovery and Strain</h2>
     </div>
     """, unsafe_allow_html=True)
     
@@ -580,10 +603,10 @@ def main_app():
                 yellow, or red), Recovery reflects how well your body has adapted to recent strain and 
                 whether you're in a state of readiness or need rest. High Recovery signals strong parasympathetic 
                 activity and good physiological balance, while low Recovery can indicate stress, fatigue, illness, 
-                or inadequate sleep. Complementing this is Strain, WHOOP’s cumulative measure of cardiovascular 
+                or inadequate sleep. Complementing this is Strain, WHOOP's cumulative measure of cardiovascular 
                 load throughout the day. Unlike step counts or calories, Strain is personalized based on your fitness 
-                level and previous activity, allowing you to train in alignment with your body’s current capacity. 
-                By comparing daily Strain to your Recovery, you gain insight into whether you’re training optimally, 
+                level and previous activity, allowing you to train in alignment with your body's current capacity. 
+                By comparing daily Strain to your Recovery, you gain insight into whether you're training optimally, 
                 overreaching, or undertraining — enabling smarter decisions for performance, fitness gains, and long-term 
                 resilience.
         </p>
@@ -591,17 +614,21 @@ def main_app():
     """, unsafe_allow_html=True)
     
     st.markdown("""
-    <a href="https://support.whoop.com/s/article/WHOOP-Sleep?language=en_US" class="doc-link" target="_blank">
-        📚 DOCUMENTATION →
+    <a href="https://www.whoop.com/eu/en/thelocker/how-does-whoop-recovery-work-101/?srsltid=AfmBOorJ-ddeY6KL9P_uVgBrrj_bFIhZ7I6tIiIbCJiCe3Wqc6FqDZgk" class="doc-link" target="_blank">
+        📚 RECOVERY DOCUMENTATION →
+    </a>
+    """, unsafe_allow_html=True)
+    st.markdown("""
+    <a href="https://www.whoop.com/us/en/thelocker/how-does-whoop-strain-work-101/?srsltid=AfmBOopjXT4iy1QQTkIskw19chbwJkkfTVwzED97Jb5TTaOxoeiNRGo5" class="doc-link" target="_blank">
+        📚 STRAIN DOCUMENTATION →
     </a>
     """, unsafe_allow_html=True)
         
-    st.markdown("### 📈 Recovery Heatmap")
+    st.markdown("### 📈 Recovery")
     fig3 = plot_heatmap(recovery_grid)
     st.pyplot(fig3, use_container_width=True)
     
     # Display insights
-    display_sleep_insights(stats)
     
     # Color coding explanation
     st.markdown("---")

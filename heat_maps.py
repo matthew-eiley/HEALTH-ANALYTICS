@@ -48,7 +48,7 @@ def get_sleep_consistency_rgb(row):
         return (0.941, 0.949, 0.961)  # Light gray
 
 def get_recovery_rgb(row):
-    value = row["sleep_consistency"]
+    value = row["recovery"]
     if pd.isna(value):
         return (0.235, 0.235, 0.235)  # Dark gray for missing data
     elif value >= 87.5:
@@ -94,7 +94,7 @@ def fill_grids():
     # Add RGB columns
     df["hours_vs_needed_rgb"] = df.apply(lambda row: get_hours_vs_needed_rgb(row), axis=1)
     df["sleep_consistency_rgb"] = df.apply(lambda row: get_sleep_consistency_rgb(row), axis=1)
-    df["recovery_rgb"] = df.apply(lambda row: get_sleep_consistency_rgb(row), axis=1)
+    df["recovery_rgb"] = df.apply(lambda row: get_recovery_rgb(row), axis=1)
 
     # Initialize grids (52 weeks, 7 days)
     hours_vs_needed_grid = []
@@ -165,3 +165,5 @@ def get_dynamic_month_labels():
     return month_positions, month_labels
 
 fill_grids()
+
+print(fill_grids())
