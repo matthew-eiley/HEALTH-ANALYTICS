@@ -138,8 +138,6 @@ def fill_grids():
         if recovery_grid[51][i] is None:
             recovery_grid[51][i] = [[], (1, 1, 1)]
 
-    
-    print(hours_vs_needed_grid)
     return hours_vs_needed_grid, sleep_consistency_grid, recovery_grid
 
 def get_dynamic_month_labels():
