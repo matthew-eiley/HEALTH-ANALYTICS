@@ -74,13 +74,12 @@ def display_insights(stats):
     if stats is None:
         return
     
-    st.markdown("---")
-    st.subheader("Performance Insights")
+    st.markdown("### Performance Insights")
     
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### Sleep Sufficiency Performance")
+        st.markdown("#### Sleep Sufficiency Performance")
         avg_hours = stats['avg_hours_vs_needed']
         if avg_hours >= 85:
             st.success(f"Optimal! My average sleep duration this week is {avg_hours:.2f}%")
@@ -90,7 +89,7 @@ def display_insights(stats):
             st.warning(f"Poor. My average sleep duration this week is {avg_hours:.2f}%")
     
     with col2:
-        st.markdown("### Sleep Consistency Performance")
+        st.markdown("#### Sleep Consistency Performance")
         avg_consistency = stats['avg_sleep_consistency']
         if avg_consistency >= 80:
             st.success(f"Optimal! My average sleep consistency this week is {avg_consistency:.2f}%")
@@ -134,40 +133,29 @@ def main_app():
     with st.spinner("Loading heatmap data..."):
         hours_vs_needed_grid, sleep_consistency_grid = sleep.fill_grids()
         
-    # Display heatmaps
     st.markdown("---")
     
-    # Hours vs Needed Heatmap
-    st.subheader("Sleep Sufficiency")
-    st.markdown("""WHOOP defines Sleep Sufficiency as the percentage of sleep you actually 
-                achieved compared to your personalized “sleep need,” which varies nightly 
-                based on your strain, sleep debt, and naps. Unlike generic 7-9 hour guidelines, 
-                WHOOP dynamically calibrates your individual requirement. So if you only slept 
-                85% of what you needed, your body and readiness may feel more impacted than 
-                simply missing that 7-9 hour target. Over time, consistent underperformance 
-                in this area contributes to mounting sleep debt and can diminish recovery, 
-                readiness, and daytime function.""")
+    # Sleep section
+    st.subheader("Sleep")
+    st.markdown("""Sleep is one of the most critical factors influencing your recovery, performance, and 
+                overall health. WHOOP measures your sleep in two key dimensions: Sleep Sufficiency and 
+                Sleep Consistency. Sleep Sufficiency reflects how much sleep you got compared to your 
+                personalized sleep need, which adjusts daily based on your recent strain, baseline sleep, 
+                and other recovery demands. Rather than applying a fixed 7-9 hour standard, WHOOP calculates 
+                how much sleep your body truly requires each night. Falling short, even by a small percentage, 
+                can lead to accumulating sleep debt and diminished recovery over time. Complementing this, 
+                Sleep Consistency tracks how aligned your bedtime and wake times are across consecutive days. 
+                Even if you're getting the right quantity of sleep, irregular timing can disrupt your circadian 
+                rhythm, impair hormonal balance, and reduce time spent in restorative deep and REM sleep. 
+                Together, these two metrics provide a deeper, more personalized understanding of your sleep 
+                quality and its impact on daily readiness.""")
     st.markdown("[DOCUMENTATION &rarr;](https://support.whoop.com/s/article/WHOOP-Sleep?language=en_US)")
     
     fig1 = plot_heatmap(hours_vs_needed_grid, "Sleep Sufficiency (%)")
     st.pyplot(fig1, use_container_width=True)
-    
-    st.markdown("---")
-    
-    # Sleep Consistency Heatmap
-    st.subheader("Sleep Consistency")
-    st.markdown("""Sleep Consistency measures how regularly your bedtime and wake time align across 
-                consecutive days — WHOOP compares your last night's timing to the preceding four nights. 
-                Research shows that consistent sleep schedules — even if total sleep is the same — are 
-                linked to better cognitive outcomes, hormonal regulation (like melatonin), more deep and
-                REM sleep, higher HRV, and better overall recovery. WHOOP even highlights that irregularity, 
-                such as catching up on weekends, can disrupt circadian rhythms and hamper the quality and 
-                effectiveness of your sleep, reducing the benefits of even sufficient rest""")
-    st.markdown("[DOCUMENTATION &rarr;](https://support.whoop.com/s/article/WHOOP-Sleep?language=en_US)")
-    
     fig2 = plot_heatmap(sleep_consistency_grid, "Sleep Consistency (%)")
     st.pyplot(fig2, use_container_width=True)
-        
+            
     # Display insights
     display_insights(stats)
     

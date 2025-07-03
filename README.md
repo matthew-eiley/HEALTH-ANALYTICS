@@ -2,27 +2,12 @@
 
 A comprehensive health analytics system with data input via command line and visualization via Streamlit.
 
-## 🚀 Quick Start
 
-### 1. Data Input
-Run the main script to input your daily health metrics:
-\`\`\`bash
-python main.py
-\`\`\`
-
-This will prompt you to enter:
-- Date (or use today's date)
-- Sleep vs needed (%)
-- Sleep consistency (%)
-- Recovery (%)
-- Strain
-- Heart Rate Variability (ms)
-
-### 2. View Dashboard
+### View Dashboard
 Launch the Streamlit dashboard to visualize your data:
-\`\`\`bash
+```bash
 streamlit run streamlit_app.py
-\`\`\`
+```
 
 ## 📊 Features
 
@@ -75,15 +60,6 @@ Shows how consistent your sleep schedule is:
 ## 📋 Requirements
 
 Install dependencies:
-\`\`\`bash
+```bash
 pip install -r requirements.txt
-\`\`\`
-
-## 🌐 Deployment
-
-You can deploy the Streamlit app to:
-- **Streamlit Cloud**: Free hosting for Streamlit apps
-- **Heroku**: Full-featured cloud platform
-- **Vercel**: Modern deployment platform
-
-Make sure to include your \`data.csv\` file when deploying, or set up a data input method for your deployed version.
+```
