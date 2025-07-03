@@ -467,53 +467,8 @@ def plot_heatmap(grid):
     plt.tight_layout()
     
     return fig
-    
-def main_app():
-    # Header section
-    st.markdown("""
-    <div class="main-header">
-        <h1 class="main-title">Health Analytics Dashboard</h1>
-        <p class="main-subtitle">
-            This project is a personal health monitoring and visualization tool powered by WHOOP. 
-            It retrieves and analyzes my recovery, sleep, strain, and cardiovascular metrics to help 
-            optimize physical performance and daily wellbeing.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Get basic statistics
-    stats = main.get_basic_stats()
-    
-    # Display basic stats in a beautiful container
-    st.markdown("### 📊 Dashboard Overview")
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric("**📅 Days Tracked**", f"{stats['total_days']}")
-    with col2:
-        st.metric("**🕐 Last Updated**", f"{main.TODAY.strftime('%A, %B %d, %Y, %H:%M:%S')}")
-    
-    st.markdown("#### This Week's Key Metrics")
-    col3, col4, col5, col6, col7 = st.columns(5)
-    with col3:
-        st.metric("**😴 Avg Sleep Sufficiency**", f"{stats['avg_hours_vs_needed']:.2f}%")
-    with col4:
-        st.metric("**⏰ Avg Sleep Consistency**", f"{stats['avg_sleep_consistency']:.2f}%")
-    with col5:
-        st.metric("**🔋 Avg Recovery**", f"{stats['avg_recovery']:.2f}%")
-    with col6:
-        st.metric("**💪 Avg Strain**", f"{stats['avg_strain']:.2f}")
-    with col7:
-        st.metric("**❤️ Avg HRV**", f"{stats['avg_hrv']:.2f} ms")
-    
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Create grids using the sleep module
-    with st.spinner("🔄 Loading heatmap data..."):
-        hours_vs_needed_grid, sleep_consistency_grid, recovery_grid = heat_maps.fill_grids()
-    
-    st.markdown("---")
-    
+
+def do_sleep_section(stats, hours_vs_needed_grid, sleep_consistency_grid):
     # Sleep section
     st.markdown("""
     <div class="section-header">
@@ -544,7 +499,7 @@ def main_app():
     with col1:
         st.markdown("""
             <div class="left-header">
-                <h2 class="subsection-title">😴 Sleep Sufficiency</h2>
+                <h3 class="subsection-title">😴 Sleep Sufficiency</h3>
             </div>
         """, unsafe_allow_html=True)
         st.markdown("""
@@ -566,7 +521,7 @@ def main_app():
     with col2:
         st.markdown("""
             <div class="right-header">
-                <h2 class="subsection-title">⏰ Sleep Consistency</h2>
+                <h3 class="subsection-title">⏰ Sleep Consistency</h3>
             </div>
         """, unsafe_allow_html=True)
 
@@ -586,7 +541,56 @@ def main_app():
             st.info(f"✅ Sufficient! My average sleep consistency this week is {avg_consistency:.2f}%")
         else:
             st.warning(f"⚠️ Poor. My average sleep consistency this week is {avg_consistency:.2f}%")
+
+    
+def main_app():
+    # Header section
+    st.markdown("""
+    <div class="main-header">
+        <h1 class="main-title">Health Analytics Dashboard</h1>
+        <p class="main-subtitle">
+            This project is a comprehensive personal health monitoring and visualization 
+            platform, powered by my WHOOP data. It continuously tracks, analyzes, and visualizes 
+            key biometric data—including sleep, recovery, strain, and cardiovascular metrics 
+            to uncover meaningful trends, highlight performance insights, and support more informed 
+            decisions around training, rest, and long-term wellbeing. Through intuitive dashboards 
+            and personalized feedback, the system helps optimize physical readiness, prevent burnout, 
+            and foster a deeper connection between my lifestyle habits and physiological outcomes.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Get basic statistics
+    stats = main.get_basic_stats()
+    
+    st.markdown("### 📊 Dashboard Overview")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("**📅 Days Tracked**", f"{stats['total_days']}")
+    with col2:
+        st.metric("**🕐 Last Updated**", f"{main.TODAY.strftime('%A, %B %d, %Y, %H:%M:%S')}")
+    
+    st.markdown("#### This Week's Key Metrics")
+    col3, col4, col5, col6, col7 = st.columns(5)
+    with col3:
+        st.metric("**😴 Avg Sleep Sufficiency**", f"{stats['avg_hours_vs_needed']:.2f}%")
+    with col4:
+        st.metric("**⏰ Avg Sleep Consistency**", f"{stats['avg_sleep_consistency']:.2f}%")
+    with col5:
+        st.metric("**🔋 Avg Recovery**", f"{stats['avg_recovery']:.2f}%")
+    with col6:
+        st.metric("**💪 Avg Strain**", f"{stats['avg_strain']:.2f}")
+    with col7:
+        st.metric("**❤️ Avg HRV**", f"{stats['avg_hrv']:.2f} ms")
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Create grids using the sleep module
+    with st.spinner("🔄 Loading heatmap data..."):
+        hours_vs_needed_grid, sleep_consistency_grid, recovery_grid = heat_maps.fill_grids()
         
+    do_sleep_section(stats, hours_vs_needed_grid, sleep_consistency_grid)
+
     # Recovery and Strain section
     st.markdown("""
     <div class="section-header">
@@ -631,7 +635,6 @@ def main_app():
     # Display insights
     
     # Color coding explanation
-    st.markdown("---")
     
     st.markdown("""
     <div class="color-guide">
