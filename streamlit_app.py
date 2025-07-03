@@ -1,7 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
-import sleep
+import heat_maps
 import main
 
 # Page configuration
@@ -25,13 +25,13 @@ def plot_heatmap(grid, title):
             if cell_data is not None:
                 color = cell_data[1]  # RGB color
             else:
-                color = (0.906, 0.906, 0.906)  # Light gray for empty cells
+                color = (0.941, 0.949, 0.961)  # Light gray for empty cells
             
             # Create rounded rectangle using FancyBboxPatch
             rounded_rect = FancyBboxPatch(
                 (week, 6-day), 0.85, 0.85,  # Slightly smaller for spacing
-                boxstyle="round,pad=0.5",
-                linewidth=1,
+                boxstyle="round",
+                linewidth=2.5,
                 edgecolor='white',
                 facecolor=color,
                 mutation_scale=0.1
@@ -49,7 +49,7 @@ def plot_heatmap(grid, title):
     ax.set_yticklabels(day_labels)
     
     # Add dynamic month labels
-    month_positions, month_labels = sleep.get_dynamic_month_labels()
+    month_positions, month_labels = heat_maps.get_dynamic_month_labels()
     ax.set_xticks(month_positions)
     ax.set_xticklabels(month_labels)
     
@@ -131,7 +131,7 @@ def main_app():
     
     # Create grids using the sleep module
     with st.spinner("Loading heatmap data..."):
-        hours_vs_needed_grid, sleep_consistency_grid = sleep.fill_grids()
+        hours_vs_needed_grid, sleep_consistency_grid, recovery_grid = heat_maps.fill_grids()
         
     st.markdown("---")
     
@@ -155,6 +155,8 @@ def main_app():
     st.pyplot(fig1, use_container_width=True)
     fig2 = plot_heatmap(sleep_consistency_grid, "Sleep Consistency (%)")
     st.pyplot(fig2, use_container_width=True)
+    fig3 = plot_heatmap(recovery_grid, "Recovery (%)")
+    st.pyplot(fig3, use_container_width=True)
             
     # Display insights
     display_insights(stats)

@@ -6,52 +6,66 @@ import os
 FILENAME = "data.csv"
 
 def load_data():
-    """Load data from the local CSV file"""
     try:
         if not os.path.exists(FILENAME):
             print(f"Warning: {FILENAME} not found. Please run main.py to create data first.")
             return None
         
-        df = pd.read_csv(FILENAME, usecols=["date", "hours_vs_needed", "sleep_consistency"], parse_dates=["date"])
+        df = pd.read_csv(FILENAME, usecols=["date", "hours_vs_needed", "sleep_consistency", "recovery"], parse_dates=["date"])
         return df
     except Exception as e:
         print(f"Error loading data: {e}")
         return None
 
 def get_hours_vs_needed_rgb(row):
-    """Get RGB color for hours vs needed percentage"""
     value = row["hours_vs_needed"]
     if pd.isna(value):
         return (0.235, 0.235, 0.235)  # Dark gray for missing data
     elif value >= 92.5:
-        return (0.106, 0.271, 0.125)  # Darker green
+        return (0.180, 0.380, 0.188)  # Darker green
     elif value >= 85:
-        return (0.196, 0.455, 0.220)  # Dark green
+        return (0.325, 0.635, 0.345)  # Dark green
     elif value >= 77.5:
-        return (0.314, 0.624, 0.345)  # Medium green
+        return (0.427, 0.749, 0.455)  # Medium green
     elif value >= 70:
-        return (0.565, 0.792, 0.596)  # Light green
+        return (0.729, 0.925, 0.749)  # Light green
     else:
-        return (0.906, 0.906, 0.906)  # Light gray
+        return (0.941, 0.949, 0.961)  # Light gray
 
 def get_sleep_consistency_rgb(row):
-    """Get RGB color for sleep consistency percentage"""
     value = row["sleep_consistency"]
     if pd.isna(value):
         return (0.235, 0.235, 0.235)  # Dark gray for missing data
     elif value >= 90:
-        return (0.106, 0.271, 0.125)  # Darker green
+        return (0.325, 0.635, 0.345)  # Dark green
     elif value >= 80:
         return (0.196, 0.455, 0.220)  # Dark green
     elif value >= 70:
-        return (0.314, 0.624, 0.345)  # Medium green
+        return (0.427, 0.749, 0.455)  # Medium green
     elif value >= 60:
-        return (0.565, 0.792, 0.596)  # Light green
+        return (0.729, 0.925, 0.749)  # Light green
     else:
-        return (0.906, 0.906, 0.906)  # Light gray
+        return (0.941, 0.949, 0.961)  # Light gray
+
+def get_recovery_rgb(row):
+    value = row["sleep_consistency"]
+    if pd.isna(value):
+        return (0.235, 0.235, 0.235)  # Dark gray for missing data
+    elif value >= 87.5:
+        return (0.180, 0.380, 0.188)  # Darker green
+    elif value >= 75:
+        return (0.325, 0.635, 0.345)  # Dark green
+    elif value >= 62.5:
+        return (0.427, 0.749, 0.455)  # Medium green
+    elif value >= 50:
+        return (0.729, 0.925, 0.749)  # Light green
+    else:
+        return (0.941, 0.949, 0.961)  # Light gray
 
 def get_heatmap_start_date():
-    """Get the start date for the heatmap (52 weeks ago from this Monday)"""
+    """
+    Get the start date for the heatmap (52 weeks ago from this Monday)
+    """
     today = datetime.today().date()
     # Go to Monday of this week
     this_monday = today - timedelta(days=today.weekday())  # Monday=0
@@ -59,7 +73,9 @@ def get_heatmap_start_date():
     return this_monday - timedelta(weeks=51)
 
 def get_week_and_day(date, start_date):
-    """Get week and day indices for a given date"""
+    """
+    Get week and day indices for a given date
+    """
     days_since_start = (date - start_date).days
     if not 0 <= days_since_start < 364:  # Exactly 52 weeks
         return None, None
@@ -68,7 +84,9 @@ def get_week_and_day(date, start_date):
     return week, day
 
 def fill_grids():
-    """Create and fill the heatmap grids"""
+    """
+    Create and fill the heatmap grids
+    """
     df = load_data()
     if df is None:
         return None, None
@@ -76,7 +94,8 @@ def fill_grids():
     # Add RGB columns
     df["hours_vs_needed_rgb"] = df.apply(lambda row: get_hours_vs_needed_rgb(row), axis=1)
     df["sleep_consistency_rgb"] = df.apply(lambda row: get_sleep_consistency_rgb(row), axis=1)
-    
+    df["recovery_rgb"] = df.apply(lambda row: get_sleep_consistency_rgb(row), axis=1)
+
     # Initialize grids (52 weeks, 7 days)
     hours_vs_needed_grid = []
     for week in range(52):
@@ -89,6 +108,13 @@ def fill_grids():
         sleep_consistency_grid.append([])
         for day in range(7):
             sleep_consistency_grid[week].append(None)
+
+    recovery_grid = []
+    for week in range(52):
+        recovery_grid.append([])
+        for day in range(7):
+            recovery_grid[week].append(None)
+
     
     start_date = get_heatmap_start_date()
     
@@ -99,8 +125,22 @@ def fill_grids():
         if week is not None and day is not None:
             hours_vs_needed_grid[week][day] = [date, row["hours_vs_needed_rgb"]]
             sleep_consistency_grid[week][day] = [date, row["sleep_consistency_rgb"]]
+            recovery_grid[week][day] = [date, row["recovery_rgb"]]
+
+    # make rest of this week white
+    for i in range(7):
+        if hours_vs_needed_grid[51][i] is None:
+            hours_vs_needed_grid[51][i] = [[], (1, 1, 1)]
+    for i in range(7):
+        if sleep_consistency_grid[51][i] is None:
+            sleep_consistency_grid[51][i] = [[], (1, 1, 1)]
+    for i in range(7):
+        if recovery_grid[51][i] is None:
+            recovery_grid[51][i] = [[], (1, 1, 1)]
+
     
-    return hours_vs_needed_grid, sleep_consistency_grid
+    print(hours_vs_needed_grid)
+    return hours_vs_needed_grid, sleep_consistency_grid, recovery_grid
 
 def get_dynamic_month_labels():
     """Get month labels that appear under weeks containing the 1st of each month"""
@@ -120,8 +160,10 @@ def get_dynamic_month_labels():
             
             # If this date is the 1st of a month, add a label for this week
             if check_date.day == 1:
-                month_positions.append(week)
+                month_positions.append(week+0.5)
                 month_labels.append(check_date.strftime('%b'))
                 break  # Only add one label per week
     
     return month_positions, month_labels
+
+fill_grids()

@@ -1,7 +1,7 @@
 from datetime import datetime
 import pandas as pd
 import os
-import sleep
+import heat_maps
 
 FILENAME = "data.csv"
 TODAY = datetime.today()
@@ -63,7 +63,7 @@ def get_recent_data(days=7):
 
 def main():
     get_and_store_data()
-    hours_vs_needed_grid, sleep_consistency_grid = sleep.fill_grids()
+    heat_maps.fill_grids()
 
 if __name__ == "__main__":
     main()
