@@ -1,14 +1,15 @@
 from datetime import datetime
 import pandas as pd
 import os
+import sleep
 
 FILENAME = "data.csv"
+TODAY = datetime.today()
 
 def get_date():
     date = input("Input the date for which you are entering values.\nIf you just want to use today's date, press enter.\nIf you want to use a different date, enter it in the form mm/dd/yyyy:\n")
     if date == "":
-        today = datetime.today()
-        date = datetime(month=today.month, day=today.day, year=today.year)
+        date = datetime(month=TODAY.month, day=TODAY.day, year=TODAY.year)
     else:
         specs = date.split("/")
         date = datetime(month=int(specs[0]), day=int(specs[1]), year=int(specs[2]))
@@ -37,7 +38,32 @@ def get_and_store_data():
     df.to_csv(FILENAME, index=False)
     print("\nEntry saved.")
 
+def get_basic_stats():    
+    df = pd.read_csv(FILENAME, parse_dates=["date"])
+    
+    stats = {
+        'total_days': len(df),
+        'avg_hours_vs_needed': df.tail(7)["hours_vs_needed"].mean(),
+        'avg_sleep_consistency': df.tail(7)["sleep_consistency"].mean(),
+        'avg_recovery': df.tail(7)["recovery"].mean(),
+        'avg_strain': pd.to_numeric(df.tail(7)["strain"], errors='coerce').mean(),
+        'avg_hrv': df.tail(7)["hrv"].mean()
+    }
+    
+    return stats
+
+def get_recent_data(days=7):
+    """Get recent data for insights"""
+    if not os.path.exists(FILENAME):
+        return None
+    
+    df = pd.read_csv(FILENAME, parse_dates=["date"])
+    df_sorted = df.sort_values('date', ascending=False)
+    return df_sorted.head(days)
+
 def main():
     get_and_store_data()
+    hours_vs_needed_grid, sleep_consistency_grid = sleep.fill_grids()
 
-main()
+if __name__ == "__main__":
+    main()
