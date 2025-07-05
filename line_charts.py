@@ -70,11 +70,18 @@ def make_plot(col):
         'strain': 'Strain'
     }
     
-    ax.set_ylabel(f"{metric_names.get(col, col.replace('_', ' ').title())} (%)", 
-                 fontsize=10, 
-                 fontweight='500',
-                 color=colors['text'],
-                 fontfamily='sans-serif')
+    if col == 'strain':
+        ax.set_ylabel(f"{metric_names.get(col, col.replace('_', ' ').title())}", 
+                    fontsize=10, 
+                    fontweight='500',
+                    color=colors['text'],
+                    fontfamily='sans-serif')
+    else:
+        ax.set_ylabel(f"{metric_names.get(col, col.replace('_', ' ').title())} (%)", 
+                    fontsize=10, 
+                    fontweight='500',
+                    color=colors['text'],
+                    fontfamily='sans-serif')
         
     # Customize the grid to match your app
     ax.grid(True, 
