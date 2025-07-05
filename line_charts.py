@@ -27,10 +27,7 @@ def create_mas(col):
 
 def make_plot(col):
     df = create_mas(col)
-    if df is None:
-        return None
-    
-    # Create figure with custom styling to match your app
+
     fig, ax = plt.subplots(figsize=(12, 6), dpi=240)
     
     
@@ -156,9 +153,16 @@ def make_plot(col):
         ax.axhspan(0, 7, alpha=0.8, color=(0.941, 0.949, 0.961), zorder=0)      # Light gray
 
     # Set y-axis limits with some padding
-    y_min = min(df[col].min(), df["7d_ma"].min(), df["30d_ma"].min()) - 2
-    y_max = max(df[col].max(), df["7d_ma"].max(), df["30d_ma"].max()) + 2
-    ax.set_ylim(max(0, y_min), min(21, y_max))
+    if col == 'strain':
+        offset = 2
+        real_max = 21
+    else:
+        offset = 5
+        real_max = 100
+    
+    y_min = min(df[col].min(), df["7d_ma"].min(), df["30d_ma"].min()) - offset
+    y_max = max(df[col].max(), df["7d_ma"].max(), df["30d_ma"].max()) + offset
+    ax.set_ylim(max(0, y_min), min(real_max, y_max))
     
     # Tight layout with extra padding for legend
     plt.tight_layout()
