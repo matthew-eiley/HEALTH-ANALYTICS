@@ -43,10 +43,10 @@ def do_sleep_section(stats):
         """, unsafe_allow_html=True)
 
         with st.spinner(text="⏳ Generating sleep sufficiency plot...", show_time=True):
-            fig = heat_maps.plot_sufficiency_heatmap()
+            fig = line_graphs.make_sleep_sufficiency_plot()
             st.pyplot(fig, use_container_width=True)
         with st.spinner(text="⏳ Generating sleep sufficiency plot...", show_time=True):
-            fig = line_graphs.make_sleep_sufficiency_plot()
+            fig = heat_maps.plot_sufficiency_heatmap()
             st.pyplot(fig, use_container_width=True)
         with st.spinner(text="⏳ Generating sleep sufficiency plot...", show_time=True):
             fig = histograms.create_sleep_sufficiency_weekday_plot()
@@ -74,10 +74,10 @@ def do_sleep_section(stats):
         """, unsafe_allow_html=True)
 
         with st.spinner(text="⏳ Generating sleep consistency plot...", show_time=True):
-            fig = heat_maps.plot_consistency_heatmap()
+            fig = line_graphs.make_sleep_consistency_plot()
             st.pyplot(fig, use_container_width=True)
         with st.spinner(text="⏳ Generating sleep consistency plot...", show_time=True):
-            fig = line_graphs.make_sleep_consistency_plot()
+            fig = heat_maps.plot_consistency_heatmap()
             st.pyplot(fig, use_container_width=True)
         with st.spinner(text="⏳ Generating sleep consistency plot...", show_time=True):
             fig = histograms.create_sleep_consistency_weekday_plot()
@@ -120,10 +120,10 @@ def do_recovery_strain_section(stats):
         """, unsafe_allow_html=True)
 
         with st.spinner(text="⏳ Generating recovery plot...", show_time=True):
-            fig = heat_maps.plot_recovery_heatmap()
+            fig = line_graphs.make_recovery_plot()
             st.pyplot(fig, use_container_width=True)
         with st.spinner(text="⏳ Generating recovery plot...", show_time=True):
-            fig = line_graphs.make_recovery_plot()
+            fig = heat_maps.plot_recovery_heatmap()
             st.pyplot(fig, use_container_width=True)
         with st.spinner(text="⏳ Generating recovery plot...", show_time=True):
             fig = histograms.create_recovery_weekday_plot()
@@ -151,10 +151,10 @@ def do_recovery_strain_section(stats):
         """, unsafe_allow_html=True)
 
         with st.spinner(text="⏳ Generating strain plot...", show_time=True):
-            fig = heat_maps.plot_strain_heatmap()
+            fig = line_graphs.make_strain_plot()
             st.pyplot(fig, use_container_width=True)
         with st.spinner(text="⏳ Generating strain plot...", show_time=True):
-            fig = line_graphs.make_strain_plot()
+            fig = heat_maps.plot_strain_heatmap()
             st.pyplot(fig, use_container_width=True)
         with st.spinner(text="⏳ Generating strain plot...", show_time=True):
             fig = histograms.create_strain_weekday_plot()
@@ -237,6 +237,6 @@ def main_app():
 
     do_recovery_strain_section(stats)
     
-    
+
 if __name__ == "__main__":
     main_app()
