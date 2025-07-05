@@ -28,19 +28,19 @@ def do_sleep_section(stats):
     
     col1, col2 = st.columns(2)
     with col1:
-        with st.spinner(text="⏳ Generating sleep sufficiency...", show_time=True):
-            st.markdown("""
-                <div class="left-header">
-                    <h3 class="subsection-title">😴 Sleep Sufficiency</h3>
-                </div>
-            """, unsafe_allow_html=True)
-            st.markdown("""
-            <div style="text-align: center;">
-                <a href="https://www.whoop.com/us/en/thelocker/how-much-sleep-do-i-need/?srsltid=AfmBOoo1g8Wxz-9LwJZsyYMWgTiI9bVAE8jH6TXdonBwJTdsJ-49DJQY" class="doc-link" target="_blank">
-                    📚 DOCUMENTATION &rarr;
-                </a>
+        st.markdown("""
+            <div class="left-header">
+                <h3 class="subsection-title">😴 Sleep Sufficiency</h3>
             </div>
-            """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="text-align: center;">
+            <a href="https://www.whoop.com/us/en/thelocker/how-much-sleep-do-i-need/?srsltid=AfmBOoo1g8Wxz-9LwJZsyYMWgTiI9bVAE8jH6TXdonBwJTdsJ-49DJQY" class="doc-link" target="_blank">
+                📚 DOCUMENTATION &rarr;
+            </a>
+        </div>
+        """, unsafe_allow_html=True)
+        with st.spinner(text="⏳ Generating sleep sufficiency plots...", show_time=True):
             fig1 = heat_maps.plot_sufficiency_heatmap()
             st.pyplot(fig1, use_container_width=True)
             fig1 = line_charts.make_sleep_sufficiency_plot()
@@ -53,19 +53,19 @@ def do_sleep_section(stats):
             else:
                 st.warning(f"⚠️ Poor. My average sleep consistency this week was {avg_sufficiency:.2f}%")
     with col2:
-        with st.spinner(text="⏳ Generating sleep consistency...", show_time=True):
-            st.markdown("""
-                <div class="right-header">
-                    <h3 class="subsection-title">⏰ Sleep Consistency</h3>
-                </div>
-            """, unsafe_allow_html=True)
-            st.markdown("""
-            <div style="text-align: center;">
-                <a href="https://www.whoop.com/us/en/thelocker/new-feature-sleep-consistency-why-we-track-it/?srsltid=AfmBOoptQmcwOq7fRmA_bREINiwvGZkwuZUvaNW_OVazsHdu2omb-FPj" class="doc-link" target="_blank">
-                    📚 DOCUMENTATION &rarr;
-                </a>        
+        st.markdown("""
+            <div class="right-header">
+                <h3 class="subsection-title">⏰ Sleep Consistency</h3>
             </div>
-            """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="text-align: center;">
+            <a href="https://www.whoop.com/us/en/thelocker/new-feature-sleep-consistency-why-we-track-it/?srsltid=AfmBOoptQmcwOq7fRmA_bREINiwvGZkwuZUvaNW_OVazsHdu2omb-FPj" class="doc-link" target="_blank">
+                📚 DOCUMENTATION &rarr;
+            </a>        
+        </div>
+        """, unsafe_allow_html=True)
+        with st.spinner(text="⏳ Generating sleep consistency plots...", show_time=True):
             fig2 = heat_maps.plot_consistency_heatmap()
             st.pyplot(fig2, use_container_width=True)
             fig2 = line_charts.make_sleep_consistency_plot()
@@ -105,11 +105,12 @@ def do_recovery_strain_section(stats):
             </a>
         </div>
         """, unsafe_allow_html=True)
-        fig1 = heat_maps.plot_recovery_heatmap()
-        st.pyplot(fig1, use_container_width=True)
-        fig1 = line_charts.make_recovery_plot()
-        st.pyplot(fig1, use_container_width=True)
-        avg_recovery = stats['avg_recovery']
+        with st.spinner(text="⏳ Generating recovery plots...", show_time=True):
+            fig1 = heat_maps.plot_recovery_heatmap()
+            st.pyplot(fig1, use_container_width=True)
+            fig1 = line_charts.make_recovery_plot()
+            st.pyplot(fig1, use_container_width=True)
+            avg_recovery = stats['avg_recovery']
         if avg_recovery >= 72.5:
             st.success(f"🌟 Optimal! My average recovery this week was {avg_recovery:.2f}%")
         elif avg_recovery >= 65:
@@ -129,10 +130,11 @@ def do_recovery_strain_section(stats):
             </a>
         </div>
         """, unsafe_allow_html=True)
-        fig2 = heat_maps.plot_strain_heatmap()
-        st.pyplot(fig2, use_container_width=True)
-        fig2 = line_charts.make_strain_plot()
-        st.pyplot(fig2, use_container_width=True)
+        with st.spinner(text="⏳ Generating strain plots...", show_time=True):
+            fig2 = heat_maps.plot_strain_heatmap()
+            st.pyplot(fig2, use_container_width=True)
+            fig2 = line_charts.make_strain_plot()
+            st.pyplot(fig2, use_container_width=True)
         avg_strain = stats['avg_strain']
         if avg_strain >= 14:
             st.success(f"🌟 Optimal! My average strain this week was {avg_strain:.2f}%")
