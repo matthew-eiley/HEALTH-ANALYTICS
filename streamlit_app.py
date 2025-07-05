@@ -28,57 +28,55 @@ def do_sleep_section(stats):
     
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("""
-            <div class="left-header">
-                <h3 class="subsection-title">😴 Sleep Sufficiency</h3>
+        with st.spinner("⏳ Generating sleep sufficiency..."):
+            st.markdown("""
+                <div class="left-header">
+                    <h3 class="subsection-title">😴 Sleep Sufficiency</h3>
+                </div>
+            """, unsafe_allow_html=True)
+            st.markdown("""
+            <div style="text-align: center;">
+                <a href="https://www.whoop.com/us/en/thelocker/how-much-sleep-do-i-need/?srsltid=AfmBOoo1g8Wxz-9LwJZsyYMWgTiI9bVAE8jH6TXdonBwJTdsJ-49DJQY" class="doc-link" target="_blank">
+                    📚 DOCUMENTATION &rarr;
+                </a>
             </div>
-        """, unsafe_allow_html=True)
-        st.markdown("""
-        <div style="text-align: center;">
-            <a href="https://www.whoop.com/us/en/thelocker/how-much-sleep-do-i-need/?srsltid=AfmBOoo1g8Wxz-9LwJZsyYMWgTiI9bVAE8jH6TXdonBwJTdsJ-49DJQY" class="doc-link" target="_blank">
-                📚 DOCUMENTATION &rarr;
-            </a>
-        </div>
-        """, unsafe_allow_html=True)
-        with st.spinner("⏳ Generating plot..."):
+            """, unsafe_allow_html=True)
             fig1 = heat_maps.plot_sufficiency_heatmap()
             st.pyplot(fig1, use_container_width=True)
-        with st.spinner("⏳ Generating plot..."):
             fig1 = line_charts.make_sleep_sufficiency_plot()
             st.pyplot(fig1, use_container_width=True)
-        avg_sufficiency = stats['avg_hours_vs_needed']
-        if avg_sufficiency >= 85:
-            st.success(f"🌟 Optimal! My average sleep sufficiency this week was {avg_sufficiency:.2f}%")
-        elif avg_sufficiency >= 75:
-            st.info(f"✅ Sufficient! My average sleep sufficiency this week was {avg_sufficiency:.2f}%")
-        else:
-            st.warning(f"⚠️ Poor. My average sleep consistency this week was {avg_sufficiency:.2f}%")
+            avg_sufficiency = stats['avg_hours_vs_needed']
+            if avg_sufficiency >= 85:
+                st.success(f"🌟 Optimal! My average sleep sufficiency this week was {avg_sufficiency:.2f}%")
+            elif avg_sufficiency >= 75:
+                st.info(f"✅ Sufficient! My average sleep sufficiency this week was {avg_sufficiency:.2f}%")
+            else:
+                st.warning(f"⚠️ Poor. My average sleep consistency this week was {avg_sufficiency:.2f}%")
     with col2:
-        st.markdown("""
-            <div class="right-header">
-                <h3 class="subsection-title">⏰ Sleep Consistency</h3>
+        with st.spinner("⏳ Generating sleep consistency..."):
+            st.markdown("""
+                <div class="right-header">
+                    <h3 class="subsection-title">⏰ Sleep Consistency</h3>
+                </div>
+            """, unsafe_allow_html=True)
+            st.markdown("""
+            <div style="text-align: center;">
+                <a href="https://www.whoop.com/us/en/thelocker/new-feature-sleep-consistency-why-we-track-it/?srsltid=AfmBOoptQmcwOq7fRmA_bREINiwvGZkwuZUvaNW_OVazsHdu2omb-FPj" class="doc-link" target="_blank">
+                    📚 DOCUMENTATION &rarr;
+                </a>        
             </div>
-        """, unsafe_allow_html=True)
-        st.markdown("""
-        <div style="text-align: center;">
-            <a href="https://www.whoop.com/us/en/thelocker/new-feature-sleep-consistency-why-we-track-it/?srsltid=AfmBOoptQmcwOq7fRmA_bREINiwvGZkwuZUvaNW_OVazsHdu2omb-FPj" class="doc-link" target="_blank">
-                📚 DOCUMENTATION &rarr;
-            </a>        
-        </div>
-        """, unsafe_allow_html=True)
-        with st.spinner("⏳ Generating plot..."):
+            """, unsafe_allow_html=True)
             fig2 = heat_maps.plot_consistency_heatmap()
             st.pyplot(fig2, use_container_width=True)
-        with st.spinner("⏳ Generating plot..."):
             fig2 = line_charts.make_sleep_consistency_plot()
             st.pyplot(fig2, use_container_width=True)
-        avg_consistency = stats['avg_sleep_consistency']
-        if avg_consistency >= 80:
-            st.success(f"🌟 Optimal! My average sleep consistency this week was {avg_consistency:.2f}%")
-        elif avg_consistency >= 70:
-            st.info(f"✅ Sufficient! My average sleep consistency this week was {avg_consistency:.2f}%")
-        else:
-            st.warning(f"⚠️ Poor. My average sleep consistency this week was {avg_consistency:.2f}%")
+            avg_consistency = stats['avg_sleep_consistency']
+            if avg_consistency >= 80:
+                st.success(f"🌟 Optimal! My average sleep consistency this week was {avg_consistency:.2f}%")
+            elif avg_consistency >= 70:
+                st.info(f"✅ Sufficient! My average sleep consistency this week was {avg_consistency:.2f}%")
+            else:
+                st.warning(f"⚠️ Poor. My average sleep consistency this week was {avg_consistency:.2f}%")
 
 # =================================================================================================
 # ======================================= RECOVERY/STRAIN =========================================
