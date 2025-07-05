@@ -201,3 +201,22 @@ SLEEP_DESC = """
         </p>
     </div>
     """
+
+RECOVERY_STRAIN_DESC = """
+    <div class="content-card">
+        <p style="font-size: 1.1rem; line-height: 1.7; color: #4a5568;">
+            WHOOP measures your Recovery as a dynamic indicator of how ready your body is to perform, 
+                based on biometric signals such as heart rate variability (HRV), resting heart rate (RHR), 
+                respiratory rate, and sleep quality. Expressed as a percentage and color-coded (green, 
+                yellow, or red), Recovery reflects how well your body has adapted to recent strain and 
+                whether you're in a state of readiness or need rest. High Recovery signals strong parasympathetic 
+                activity and good physiological balance, while low Recovery can indicate stress, fatigue, illness, 
+                or inadequate sleep. Complementing this is Strain, WHOOP's cumulative measure of cardiovascular 
+                load throughout the day. Unlike step counts or calories, Strain is personalized based on your fitness 
+                level and previous activity, allowing you to train in alignment with your body's current capacity. 
+                By comparing daily Strain to your Recovery, you gain insight into whether you're training optimally, 
+                overreaching, or undertraining — enabling smarter decisions for performance, fitness gains, and long-term 
+                resilience.
+        </p>
+    </div>
+    """

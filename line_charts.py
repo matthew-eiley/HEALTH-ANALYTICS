@@ -11,7 +11,7 @@ def load_data():
             print(f"Warning: {FILENAME} not found. Please run main.py to create data first.")
             return None
         
-        df = pd.read_csv(FILENAME, usecols=["date", "hours_vs_needed", "sleep_consistency", "recovery"], parse_dates=["date"])
+        df = pd.read_csv(FILENAME, usecols=["date", "hours_vs_needed", "sleep_consistency", "recovery", "strain"], parse_dates=["date"])
         return df
     except Exception as e:
         print(f"Error loading data: {e}")
@@ -37,7 +37,7 @@ def make_plot(col):
     # Define colors that match your app's green theme
     colors = {
         'daily': '#ffffff',        # White for daily values
-        '7d_ma': '#909090',       # Dark grey for 7-day MA
+        '7d_ma': '#dadada',       # Dark grey for 7-day MA
         '30d_ma': '#000000',      # black for 30-day MA
         'grid': '#ffffff',        # Very light green for grid
         'text': '#000000'         # Dark text color
@@ -47,15 +47,15 @@ def make_plot(col):
     ax.plot(df['date'], df[col], 
             label="Daily Values", 
             color=colors['daily'], 
-            linewidth=3, 
-            alpha=0.75,
+            linewidth=2, 
+            alpha=1.0,
             zorder=1)
 
     ax.plot(df['date'], df["7d_ma"], 
             label="7-Day Moving Average", 
             color=colors['7d_ma'], 
             linewidth=4,
-            alpha=0.75,
+            alpha=1.0,
             zorder=2)
 
     ax.plot(df['date'], df["30d_ma"], 
@@ -69,9 +69,9 @@ def make_plot(col):
     metric_names = {
         'hours_vs_needed': 'Sleep Sufficiency',
         'sleep_consistency': 'Sleep Consistency', 
-        'recovery': 'Recovery'
+        'recovery': 'Recovery',
+        'strain': 'Strain'
     }
-    
     
     ax.set_ylabel(f"{metric_names.get(col, col.replace('_', ' ').title())} (%)", 
                  fontsize=10, 
@@ -148,11 +148,17 @@ def make_plot(col):
         ax.axhspan(62.5, 75, alpha=0.8, color=(0.427, 0.749, 0.455), zorder=0)   # Medium green
         ax.axhspan(50, 62.5, alpha=0.8, color=(0.729, 0.925, 0.749), zorder=0)   # Light green
         ax.axhspan(0, 50, alpha=0.8, color=(0.941, 0.949, 0.961), zorder=0)      # Light gray
-    
+    elif col == 'strain':
+        ax.axhspan(17.5, 21, alpha=0.8, color=(0.180, 0.380, 0.188), zorder=0)  # Darker green
+        ax.axhspan(14, 17.5, alpha=0.8, color=(0.325, 0.635, 0.345), zorder=0)   # Dark green
+        ax.axhspan(10.5, 14, alpha=0.8, color=(0.427, 0.749, 0.455), zorder=0)   # Medium green
+        ax.axhspan(7, 10.5, alpha=0.8, color=(0.729, 0.925, 0.749), zorder=0)   # Light green
+        ax.axhspan(0, 7, alpha=0.8, color=(0.941, 0.949, 0.961), zorder=0)      # Light gray
+
     # Set y-axis limits with some padding
-    y_min = min(df[col].min(), df["7d_ma"].min(), df["30d_ma"].min()) - 5
-    y_max = max(df[col].max(), df["7d_ma"].max(), df["30d_ma"].max()) + 5
-    ax.set_ylim(max(0, y_min), min(100, y_max))
+    y_min = min(df[col].min(), df["7d_ma"].min(), df["30d_ma"].min()) - 2
+    y_max = max(df[col].max(), df["7d_ma"].max(), df["30d_ma"].max()) + 2
+    ax.set_ylim(max(0, y_min), min(21, y_max))
     
     # Tight layout with extra padding for legend
     plt.tight_layout()
@@ -160,14 +166,14 @@ def make_plot(col):
     
     return fig
 
-def make_recovery_plot():
-    """Create a specialized recovery plot"""
-    return make_plot('recovery')
-
 def make_sleep_sufficiency_plot():
-    """Create a specialized sleep sufficiency plot"""
     return make_plot('hours_vs_needed')
 
 def make_sleep_consistency_plot():
-    """Create a specialized sleep consistency plot"""
     return make_plot('sleep_consistency')
+
+def make_recovery_plot():
+    return make_plot('recovery')
+
+def make_strain_plot():
+    return make_plot('strain')
