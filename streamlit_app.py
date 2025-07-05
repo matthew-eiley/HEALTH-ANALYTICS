@@ -28,7 +28,7 @@ def do_sleep_section(stats):
     
     col1, col2 = st.columns(2)
     with col1:
-        with st.spinner("⏳ Generating sleep sufficiency..."):
+        with st.spinner(text="⏳ Generating sleep sufficiency...", show_time=True):
             st.markdown("""
                 <div class="left-header">
                     <h3 class="subsection-title">😴 Sleep Sufficiency</h3>
@@ -53,7 +53,7 @@ def do_sleep_section(stats):
             else:
                 st.warning(f"⚠️ Poor. My average sleep consistency this week was {avg_sufficiency:.2f}%")
     with col2:
-        with st.spinner("⏳ Generating sleep consistency..."):
+        with st.spinner(text="⏳ Generating sleep consistency...", show_time=True):
             st.markdown("""
                 <div class="right-header">
                     <h3 class="subsection-title">⏰ Sleep Consistency</h3>
