@@ -38,9 +38,9 @@ def get_sleep_consistency_rgb(row):
     if pd.isna(value):
         return (0.235, 0.235, 0.235)  # Dark gray for missing data
     elif value >= 90:
-        return (0.325, 0.635, 0.345)  # Dark green
+        return (0.180, 0.380, 0.188)  # Dark green
     elif value >= 80:
-        return (0.196, 0.455, 0.220)  # Dark green
+        return (0.325, 0.635, 0.345)  # Dark green
     elif value >= 70:
         return (0.427, 0.749, 0.455)  # Medium green
     elif value >= 60:

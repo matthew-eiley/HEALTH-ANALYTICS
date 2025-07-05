@@ -41,12 +41,17 @@ def do_sleep_section(stats):
             </a>
         </div>
         """, unsafe_allow_html=True)
+
         with st.spinner(text="⏳ Generating sleep sufficiency plot...", show_time=True):
-            fig1 = heat_maps.plot_sufficiency_heatmap()
-            st.pyplot(fig1, use_container_width=True)
+            fig = heat_maps.plot_sufficiency_heatmap()
+            st.pyplot(fig, use_container_width=True)
         with st.spinner(text="⏳ Generating sleep sufficiency plot...", show_time=True):
-            fig1 = line_graphs.make_sleep_sufficiency_plot()
-            st.pyplot(fig1, use_container_width=True)
+            fig = line_graphs.make_sleep_sufficiency_plot()
+            st.pyplot(fig, use_container_width=True)
+        with st.spinner(text="⏳ Generating sleep sufficiency plot...", show_time=True):
+            fig = histograms.create_sleep_sufficiency_weekday_plot()
+            st.pyplot(fig, use_container_width=True)
+
         avg_sufficiency = stats['avg_hours_vs_needed']
         if avg_sufficiency >= 85:
             st.success(f"🌟 Optimal! My average sleep sufficiency this week was {avg_sufficiency:.2f}%")
@@ -67,12 +72,17 @@ def do_sleep_section(stats):
             </a>        
         </div>
         """, unsafe_allow_html=True)
+
         with st.spinner(text="⏳ Generating sleep consistency plot...", show_time=True):
-            fig2 = heat_maps.plot_consistency_heatmap()
-            st.pyplot(fig2, use_container_width=True)
+            fig = heat_maps.plot_consistency_heatmap()
+            st.pyplot(fig, use_container_width=True)
         with st.spinner(text="⏳ Generating sleep consistency plot...", show_time=True):
-            fig2 = line_graphs.make_sleep_consistency_plot()
-            st.pyplot(fig2, use_container_width=True)
+            fig = line_graphs.make_sleep_consistency_plot()
+            st.pyplot(fig, use_container_width=True)
+        with st.spinner(text="⏳ Generating sleep consistency plot...", show_time=True):
+            fig = histograms.create_sleep_consistency_weekday_plot()
+            st.pyplot(fig, use_container_width=True)
+
         avg_consistency = stats['avg_sleep_consistency']
         if avg_consistency >= 80:
             st.success(f"🌟 Optimal! My average sleep consistency this week was {avg_consistency:.2f}%")
@@ -108,12 +118,17 @@ def do_recovery_strain_section(stats):
             </a>
         </div>
         """, unsafe_allow_html=True)
+
         with st.spinner(text="⏳ Generating recovery plot...", show_time=True):
-            fig1 = heat_maps.plot_recovery_heatmap()
-            st.pyplot(fig1, use_container_width=True)
+            fig = heat_maps.plot_recovery_heatmap()
+            st.pyplot(fig, use_container_width=True)
         with st.spinner(text="⏳ Generating recovery plot...", show_time=True):
-            fig1 = line_graphs.make_recovery_plot()
-            st.pyplot(fig1, use_container_width=True)
+            fig = line_graphs.make_recovery_plot()
+            st.pyplot(fig, use_container_width=True)
+        with st.spinner(text="⏳ Generating recovery plot...", show_time=True):
+            fig = histograms.create_recovery_weekday_plot()
+            st.pyplot(fig, use_container_width=True)
+
         avg_recovery = stats['avg_recovery']
         if avg_recovery >= 72.5:
             st.success(f"🌟 Optimal! My average recovery this week was {avg_recovery:.2f}%")
@@ -134,12 +149,17 @@ def do_recovery_strain_section(stats):
             </a>
         </div>
         """, unsafe_allow_html=True)
+
         with st.spinner(text="⏳ Generating strain plot...", show_time=True):
-            fig2 = heat_maps.plot_strain_heatmap()
-            st.pyplot(fig2, use_container_width=True)
+            fig = heat_maps.plot_strain_heatmap()
+            st.pyplot(fig, use_container_width=True)
         with st.spinner(text="⏳ Generating strain plot...", show_time=True):
-            fig2 = line_graphs.make_strain_plot()
-            st.pyplot(fig2, use_container_width=True)
+            fig = line_graphs.make_strain_plot()
+            st.pyplot(fig, use_container_width=True)
+        with st.spinner(text="⏳ Generating strain plot...", show_time=True):
+            fig = histograms.create_strain_weekday_plot()
+            st.pyplot(fig, use_container_width=True)
+
         avg_strain = stats['avg_strain']
         if avg_strain >= 14:
             st.success(f"🌟 Optimal! My average strain this week was {avg_strain:.2f}%")
@@ -216,18 +236,7 @@ def main_app():
     do_sleep_section(stats)
 
     do_recovery_strain_section(stats)
-
-    fig = histograms.create_sleep_sufficiency_weekday_plot()
-    st.pyplot(fig, use_container_width=True)
-    fig = histograms.create_sleep_consistency_weekday_plot()
-    st.pyplot(fig, use_container_width=True)
-    fig = histograms.create_recovery_weekday_plot()
-    st.pyplot(fig, use_container_width=True)
-    fig = histograms.create_strain_weekday_plot()
-    st.pyplot(fig, use_container_width=True)
-    fig = histograms.create_combined_sleep_plot()
-    st.pyplot(fig, use_container_width=True)
-
+    
     
 if __name__ == "__main__":
     main_app()
