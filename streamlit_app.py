@@ -203,36 +203,5 @@ def main_app():
 
     do_recovery_strain_section(stats)
     
-    # Color coding explanation
-    
-    st.markdown("""
-    <div class="color-guide">
-        <h3 class="color-guide-title">🎨 Color Guide</h3>
-    """, unsafe_allow_html=True)
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("""
-        **🛌 Sleep Sufficiency**
-        - **🟢 Dark Green (≥92.5%)**: Excellent sleep duration
-        - **🟢 Medium Green (85-92.5%)**: Good sleep duration  
-        - **🟡 Light Green (77.5-85%)**: Adequate sleep duration
-        - **🟡 Very Light Green (70-77.5%)**: Below optimal
-        - **⚪ Gray (<70%)**: Insufficient sleep
-        """)
-    
-    with col2:
-        st.markdown("""
-        **⏰ Sleep Consistency**
-        - **🟢 Dark Green (≥90%)**: Very consistent schedule
-        - **🟢 Medium Green (80-90%)**: Good consistency
-        - **🟡 Light Green (70-80%)**: Moderate consistency
-        - **🟡 Very Light Green (60-70%)**: Poor consistency
-        - **⚪ Gray (<60%)**: Very inconsistent
-        """)
-    
-    st.markdown('</div>', unsafe_allow_html=True)
-
 if __name__ == "__main__":
     main_app()
