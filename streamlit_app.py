@@ -3,6 +3,7 @@ import heat_maps
 import main
 import styles
 import line_graphs
+import histograms
 
 st.set_page_config(
     page_title="Health Analytics Dashboard",
@@ -203,7 +204,6 @@ def main_app():
     with col6:
         st.metric("**💪 Avg Strain**", f"{stats['avg_strain']:.2f}",
                    delta=deltas['avg_strain'])
-
     with col7:
         st.metric("**❤️ Avg HRV**", f"{stats['avg_hrv']:.2f} ms",
                    delta=deltas['avg_hrv'])
@@ -216,6 +216,18 @@ def main_app():
     do_sleep_section(stats)
 
     do_recovery_strain_section(stats)
+
+    fig = histograms.create_sleep_sufficiency_weekday_plot()
+    st.pyplot(fig, use_container_width=True)
+    fig = histograms.create_sleep_consistency_weekday_plot()
+    st.pyplot(fig, use_container_width=True)
+    fig = histograms.create_recovery_weekday_plot()
+    st.pyplot(fig, use_container_width=True)
+    fig = histograms.create_strain_weekday_plot()
+    st.pyplot(fig, use_container_width=True)
+    fig = histograms.create_combined_sleep_plot()
+    st.pyplot(fig, use_container_width=True)
+
     
 if __name__ == "__main__":
     main_app()
