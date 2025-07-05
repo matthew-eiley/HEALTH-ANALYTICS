@@ -68,20 +68,19 @@ def do_sleep_section(stats):
         st.pyplot(fig2, use_container_width=True)
         fig2 = line_charts.make_sleep_consistency_plot()
         st.pyplot(fig2, use_container_width=True)
-        avg_consistency = stats['avg_sleep_consistency']
-        if avg_consistency >= 80:
-            st.success(f"🌟 Optimal! My average sleep consistency this week is {avg_consistency:.2f}%")
-        elif avg_consistency >= 70:
-            st.info(f"✅ Sufficient! My average sleep consistency this week is {avg_consistency:.2f}%")
+        avg_sufficiency = stats['avg_hours_vs_needed']
+        if avg_sufficiency >= 85:
+            st.success(f"🌟 Optimal! My average sleep sufficiency this week is {avg_sufficiency:.2f}%")
+        elif avg_sufficiency >= 75:
+            st.info(f"✅ Sufficient! My average sleep sufficiency this week is {avg_sufficiency:.2f}%")
         else:
-            st.warning(f"⚠️ Poor. My average sleep consistency this week is {avg_consistency:.2f}%")
+            st.warning(f"⚠️ Poor. My average sleep consistency this week is {avg_sufficiency:.2f}%")
 
 # =================================================================================================
 # ======================================= RECOVERY/STRAIN =========================================
 # =================================================================================================
 
 def do_recovery_strain_section(stats):
-
     st.markdown("""
     <div class="section-header">
         <h2 class="section-title">🥇 Recovery and Strain</h2>
@@ -108,13 +107,13 @@ def do_recovery_strain_section(stats):
         st.pyplot(fig1, use_container_width=True)
         fig1 = line_charts.make_recovery_plot()
         st.pyplot(fig1, use_container_width=True)
-        avg_hours = stats['avg_hours_vs_needed']
-        if avg_hours >= 85:
-            st.success(f"🌟 Optimal! My average sleep sufficiency this week is {avg_hours:.2f}%")
-        elif avg_hours >= 70:
-            st.info(f"✅ Sufficient! My average sleep sufficiency this week is {avg_hours:.2f}%")
+        avg_consistency = stats['avg_hours_vs_needed']
+        if avg_consistency >= 80:
+            st.success(f"🌟 Optimal! My average sleep sufficiency this week is {avg_consistency:.2f}%")
+        elif avg_consistency >= 70:
+            st.info(f"✅ Sufficient! My average sleep sufficiency this week is {avg_consistency:.2f}%")
         else:
-            st.warning(f"⚠️ Poor. My average sleep sufficiency this week is {avg_hours:.2f}%")
+            st.warning(f"⚠️ Poor. My average sleep sufficiency this week is {avg_consistency:.2f}%")
     with col2:
         st.markdown("""
             <div class="right-header">

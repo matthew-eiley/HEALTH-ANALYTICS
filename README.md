@@ -2,12 +2,7 @@
 
 A comprehensive health analytics system with data input via command line and visualization via Streamlit.
 
-
-### View Dashboard
-Launch the Streamlit dashboard to visualize your data:
-```bash
-streamlit run streamlit_app.py
-```
+OPEN MY APP [HERE &rarr;](https://matthew-eiley-health-analytics.streamlit.app/)
 
 ## 📊 Features
 
