@@ -40,18 +40,19 @@ def do_sleep_section(stats):
             </a>
         </div>
         """, unsafe_allow_html=True)
-        with st.spinner(text="⏳ Generating sleep sufficiency plots...", show_time=True):
+        with st.spinner(text="⏳ Generating sleep sufficiency plot...", show_time=True):
             fig1 = heat_maps.plot_sufficiency_heatmap()
             st.pyplot(fig1, use_container_width=True)
+        with st.spinner(text="⏳ Generating sleep sufficiency plot...", show_time=True):
             fig1 = line_charts.make_sleep_sufficiency_plot()
             st.pyplot(fig1, use_container_width=True)
-            avg_sufficiency = stats['avg_hours_vs_needed']
-            if avg_sufficiency >= 85:
-                st.success(f"🌟 Optimal! My average sleep sufficiency this week was {avg_sufficiency:.2f}%")
-            elif avg_sufficiency >= 75:
-                st.info(f"✅ Sufficient! My average sleep sufficiency this week was {avg_sufficiency:.2f}%")
-            else:
-                st.warning(f"⚠️ Poor. My average sleep consistency this week was {avg_sufficiency:.2f}%")
+        avg_sufficiency = stats['avg_hours_vs_needed']
+        if avg_sufficiency >= 85:
+            st.success(f"🌟 Optimal! My average sleep sufficiency this week was {avg_sufficiency:.2f}%")
+        elif avg_sufficiency >= 75:
+            st.info(f"✅ Sufficient! My average sleep sufficiency this week was {avg_sufficiency:.2f}%")
+        else:
+            st.warning(f"⚠️ Poor. My average sleep consistency this week was {avg_sufficiency:.2f}%")
     with col2:
         st.markdown("""
             <div class="right-header">
@@ -65,18 +66,19 @@ def do_sleep_section(stats):
             </a>        
         </div>
         """, unsafe_allow_html=True)
-        with st.spinner(text="⏳ Generating sleep consistency plots...", show_time=True):
+        with st.spinner(text="⏳ Generating sleep consistency plot...", show_time=True):
             fig2 = heat_maps.plot_consistency_heatmap()
             st.pyplot(fig2, use_container_width=True)
+        with st.spinner(text="⏳ Generating sleep consistency plot...", show_time=True):
             fig2 = line_charts.make_sleep_consistency_plot()
             st.pyplot(fig2, use_container_width=True)
-            avg_consistency = stats['avg_sleep_consistency']
-            if avg_consistency >= 80:
-                st.success(f"🌟 Optimal! My average sleep consistency this week was {avg_consistency:.2f}%")
-            elif avg_consistency >= 70:
-                st.info(f"✅ Sufficient! My average sleep consistency this week was {avg_consistency:.2f}%")
-            else:
-                st.warning(f"⚠️ Poor. My average sleep consistency this week was {avg_consistency:.2f}%")
+        avg_consistency = stats['avg_sleep_consistency']
+        if avg_consistency >= 80:
+            st.success(f"🌟 Optimal! My average sleep consistency this week was {avg_consistency:.2f}%")
+        elif avg_consistency >= 70:
+            st.info(f"✅ Sufficient! My average sleep consistency this week was {avg_consistency:.2f}%")
+        else:
+            st.warning(f"⚠️ Poor. My average sleep consistency this week was {avg_consistency:.2f}%")
 
 # =================================================================================================
 # ======================================= RECOVERY/STRAIN =========================================
@@ -105,12 +107,13 @@ def do_recovery_strain_section(stats):
             </a>
         </div>
         """, unsafe_allow_html=True)
-        with st.spinner(text="⏳ Generating recovery plots...", show_time=True):
+        with st.spinner(text="⏳ Generating recovery plot...", show_time=True):
             fig1 = heat_maps.plot_recovery_heatmap()
             st.pyplot(fig1, use_container_width=True)
+        with st.spinner(text="⏳ Generating recovery plot...", show_time=True):
             fig1 = line_charts.make_recovery_plot()
             st.pyplot(fig1, use_container_width=True)
-            avg_recovery = stats['avg_recovery']
+        avg_recovery = stats['avg_recovery']
         if avg_recovery >= 72.5:
             st.success(f"🌟 Optimal! My average recovery this week was {avg_recovery:.2f}%")
         elif avg_recovery >= 65:
@@ -130,9 +133,10 @@ def do_recovery_strain_section(stats):
             </a>
         </div>
         """, unsafe_allow_html=True)
-        with st.spinner(text="⏳ Generating strain plots...", show_time=True):
+        with st.spinner(text="⏳ Generating strain plot...", show_time=True):
             fig2 = heat_maps.plot_strain_heatmap()
             st.pyplot(fig2, use_container_width=True)
+        with st.spinner(text="⏳ Generating strain plot...", show_time=True):
             fig2 = line_charts.make_strain_plot()
             st.pyplot(fig2, use_container_width=True)
         avg_strain = stats['avg_strain']
