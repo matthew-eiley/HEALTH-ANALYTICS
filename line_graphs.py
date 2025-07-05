@@ -114,9 +114,8 @@ def make_plot(col):
                   length=3,
                   width=0.5)
     
-    # Style the legend to appear underneath the graph
     legend = ax.legend(loc='upper center', 
-                      bbox_to_anchor=(0.5, -0.15),
+                      bbox_to_anchor=(0.5, 1.1),
                       ncol=3,
                       frameon=True,
                       fancybox=True,
