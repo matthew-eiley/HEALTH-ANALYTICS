@@ -544,7 +544,12 @@ def do_sleep_section(stats, hours_vs_needed_grid, sleep_consistency_grid):
 
     
 def main_app():
-    # Header section
+
+    # =============================================================================================
+    # ========================================== HEADER ===========================================       
+    # =============================================================================================
+
+
     st.markdown("""
     <div class="main-header">
         <h1 class="main-title">Health Analytics Dashboard</h1>
@@ -560,6 +565,10 @@ def main_app():
     </div>
     """, unsafe_allow_html=True)
     
+    # =============================================================================================
+    # ==================================== DASHBOARD OVERVIEW =====================================       
+    # =============================================================================================
+
     # Get basic statistics
     stats = main.get_basic_stats()
     
@@ -583,13 +592,17 @@ def main_app():
     with col7:
         st.metric("**❤️ Avg HRV**", f"{stats['avg_hrv']:.2f} ms")
     
-    st.markdown('</div>', unsafe_allow_html=True)
+    # =============================================================================================
+    # ======================================= DATA SECTION ========================================       
+    # =============================================================================================
     
     # Create grids using the sleep module
     with st.spinner("🔄 Loading heatmap data..."):
         hours_vs_needed_grid, sleep_consistency_grid, recovery_grid = heat_maps.fill_grids()
         
     do_sleep_section(stats, hours_vs_needed_grid, sleep_consistency_grid)
+
+    # do_recovery_strain_section()
 
     # Recovery and Strain section
     st.markdown("""
