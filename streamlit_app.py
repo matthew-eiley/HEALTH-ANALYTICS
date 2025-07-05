@@ -4,20 +4,20 @@ from matplotlib.patches import FancyBboxPatch
 import heat_maps
 import main
 import styles
+import line_charts
 
 st.set_page_config(
     page_title="Health Analytics Dashboard",
     page_icon="🍎",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="collapsed",
 )
 
 st.markdown(styles.STYLES, unsafe_allow_html=True)
 
 def plot_heatmap(grid):
-    # Set up the figure with higher DPI for better quality
+
     fig, ax = plt.subplots(figsize=(16, 4), dpi=240)
-    # fig.patch.set_facecolor('#fafbfc')
     
     # Create the heatmap with rounded rectangles
     for week in range(52):
@@ -93,6 +93,8 @@ def do_sleep_section(stats, hours_vs_needed_grid, sleep_consistency_grid):
         </div>
         """, unsafe_allow_html=True)
         fig1 = plot_heatmap(hours_vs_needed_grid)
+        st.pyplot(fig1, use_container_width=True)
+        fig1 = line_charts.make_plot("hours_vs_needed")
         st.pyplot(fig1, use_container_width=True)
         avg_hours = stats['avg_hours_vs_needed']
         if avg_hours >= 85:

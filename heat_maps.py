@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 import pandas as pd
 import os
 
-# Constants
 FILENAME = "data.csv"
 
 def load_data():
@@ -164,4 +163,3 @@ def get_dynamic_month_labels():
     
     return month_positions, month_labels
 
-fill_grids()
