@@ -76,24 +76,7 @@ def do_sleep_section(stats, hours_vs_needed_grid, sleep_consistency_grid):
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("""
-    <div class="content-card">
-        <p style="font-size: 1.1rem; line-height: 1.7; color: #4a5568;">
-            Sleep is one of the most critical factors influencing your recovery, performance, and 
-            overall health. WHOOP measures your sleep in two key dimensions: <strong>Sleep Sufficiency</strong> and 
-            <strong>Sleep Consistency</strong>. Sleep Sufficiency reflects how much sleep you got compared to your 
-            personalized sleep need, which adjusts daily based on your recent strain, baseline sleep, 
-            and other recovery demands. Rather than applying a fixed 7-9 hour standard, WHOOP calculates 
-            how much sleep your body truly requires each night. Falling short, even by a small percentage, 
-            can lead to accumulating sleep debt and diminished recovery over time. Complementing this, 
-            Sleep Consistency tracks how aligned your bedtime and wake times are across consecutive days. 
-            Even if you're getting the right quantity of sleep, irregular timing can disrupt your circadian 
-            rhythm, impair hormonal balance, and reduce time spent in restorative deep and REM sleep. 
-            Together, these two metrics provide a deeper, more personalized understanding of your sleep 
-            quality and its impact on daily readiness.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(styles.SLEEP_DESC, unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     with col1:

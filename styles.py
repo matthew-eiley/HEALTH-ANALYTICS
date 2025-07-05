@@ -182,3 +182,22 @@ STYLES = """
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 </style>"""
+
+SLEEP_DESC = """
+    <div class="content-card">
+        <p style="font-size: 1.1rem; line-height: 1.7; color: #4a5568;">
+            Sleep is one of the most critical factors influencing your recovery, performance, and 
+            overall health. WHOOP measures your sleep in two key dimensions: <strong>Sleep Sufficiency</strong> and 
+            <strong>Sleep Consistency</strong>. Sleep Sufficiency reflects how much sleep you got compared to your 
+            personalized sleep need, which adjusts daily based on your recent strain, baseline sleep, 
+            and other recovery demands. Rather than applying a fixed 7-9 hour standard, WHOOP calculates 
+            how much sleep your body truly requires each night. Falling short, even by a small percentage, 
+            can lead to accumulating sleep debt and diminished recovery over time. Complementing this, 
+            Sleep Consistency tracks how aligned your bedtime and wake times are across consecutive days. 
+            Even if you're getting the right quantity of sleep, irregular timing can disrupt your circadian 
+            rhythm, impair hormonal balance, and reduce time spent in restorative deep and REM sleep. 
+            Together, these two metrics provide a deeper, more personalized understanding of your sleep 
+            quality and its impact on daily readiness.
+        </p>
+    </div>
+    """
