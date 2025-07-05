@@ -43,6 +43,7 @@ def get_basic_stats():
     
     stats = {
         'total_days': len(df),
+        'last_updated': df.iloc[len(df)-1]["date"],
         'avg_hours_vs_needed': df.tail(7)["hours_vs_needed"].mean(),
         'avg_sleep_consistency': df.tail(7)["sleep_consistency"].mean(),
         'avg_recovery': df.tail(7)["recovery"].mean(),

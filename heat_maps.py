@@ -165,5 +165,3 @@ def get_dynamic_month_labels():
     return month_positions, month_labels
 
 fill_grids()
-
-print(fill_grids())

@@ -177,7 +177,7 @@ def main_app():
     with col1:
         st.metric("**📅 Days Tracked**", f"{stats['total_days']}")
     with col2:
-        st.metric("**🕐 Last Updated**", f"{main.TODAY.strftime('%A, %B %d, %Y, %H:%M:%S')}")
+        st.metric("**🕐 Last Updated**", f"{stats['last_updated'].strftime('%A, %B %d, %Y')}")
     
     st.markdown("#### This Week's Key Metrics")
     col3, col4, col5, col6, col7 = st.columns(5)
