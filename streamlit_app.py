@@ -40,10 +40,12 @@ def do_sleep_section(stats):
             </a>
         </div>
         """, unsafe_allow_html=True)
-        fig1 = heat_maps.plot_sufficiency_heatmap()
-        st.pyplot(fig1, use_container_width=True)
-        fig1 = line_charts.make_sleep_sufficiency_plot()
-        st.pyplot(fig1, use_container_width=True)
+        with st.spinner("⏳ Generating plot..."):
+            fig1 = heat_maps.plot_sufficiency_heatmap()
+            st.pyplot(fig1, use_container_width=True)
+        with st.spinner("⏳ Generating plot..."):
+            fig1 = line_charts.make_sleep_sufficiency_plot()
+            st.pyplot(fig1, use_container_width=True)
         avg_sufficiency = stats['avg_hours_vs_needed']
         if avg_sufficiency >= 85:
             st.success(f"🌟 Optimal! My average sleep sufficiency this week was {avg_sufficiency:.2f}%")
@@ -64,10 +66,12 @@ def do_sleep_section(stats):
             </a>        
         </div>
         """, unsafe_allow_html=True)
-        fig2 = heat_maps.plot_consistency_heatmap()
-        st.pyplot(fig2, use_container_width=True)
-        fig2 = line_charts.make_sleep_consistency_plot()
-        st.pyplot(fig2, use_container_width=True)
+        with st.spinner("⏳ Generating plot..."):
+            fig2 = heat_maps.plot_consistency_heatmap()
+            st.pyplot(fig2, use_container_width=True)
+        with st.spinner("⏳ Generating plot..."):
+            fig2 = line_charts.make_sleep_consistency_plot()
+            st.pyplot(fig2, use_container_width=True)
         avg_consistency = stats['avg_sleep_consistency']
         if avg_consistency >= 80:
             st.success(f"🌟 Optimal! My average sleep consistency this week was {avg_consistency:.2f}%")
