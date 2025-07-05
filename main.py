@@ -53,6 +53,29 @@ def get_basic_stats():
     
     return stats
 
+def get_stats_deltas():    
+    df = pd.read_csv(FILENAME, parse_dates=["date"])
+    stats = get_basic_stats()
+    
+    prev = {
+        'avg_hours_vs_needed': df.iloc[-14:-7]["hours_vs_needed"].mean(),
+        'avg_sleep_consistency': df.iloc[-14:-7]["sleep_consistency"].mean(),
+        'avg_recovery': df.iloc[-14:-7]["recovery"].mean(),
+        'avg_strain': pd.to_numeric(df.iloc[-14:-7]["strain"], errors='coerce').mean(),
+        'avg_hrv': df.iloc[-14:-7]["hrv"].mean()
+    }
+
+    deltas = {
+        'avg_hours_vs_needed': round(stats['avg_hours_vs_needed']-prev['avg_hours_vs_needed'], 1),
+        'avg_sleep_consistency': round(stats['avg_sleep_consistency']-prev['avg_sleep_consistency'], 1),
+        'avg_recovery': round(stats['avg_recovery']-prev['avg_recovery'], 1),
+        'avg_strain': round(stats['avg_strain']-prev['avg_strain'], 1),
+        'avg_hrv': round(stats['avg_hrv']-prev['avg_hrv'], 1)
+    }
+    
+    return deltas
+
+
 def get_recent_data(days=7):
     """Get recent data for insights"""
     if not os.path.exists(FILENAME):

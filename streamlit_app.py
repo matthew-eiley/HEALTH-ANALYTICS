@@ -2,7 +2,7 @@ import streamlit as st
 import heat_maps
 import main
 import styles
-import line_charts
+import line_graphs
 
 st.set_page_config(
     page_title="Health Analytics Dashboard",
@@ -44,7 +44,7 @@ def do_sleep_section(stats):
             fig1 = heat_maps.plot_sufficiency_heatmap()
             st.pyplot(fig1, use_container_width=True)
         with st.spinner(text="⏳ Generating sleep sufficiency plot...", show_time=True):
-            fig1 = line_charts.make_sleep_sufficiency_plot()
+            fig1 = line_graphs.make_sleep_sufficiency_plot()
             st.pyplot(fig1, use_container_width=True)
         avg_sufficiency = stats['avg_hours_vs_needed']
         if avg_sufficiency >= 85:
@@ -70,7 +70,7 @@ def do_sleep_section(stats):
             fig2 = heat_maps.plot_consistency_heatmap()
             st.pyplot(fig2, use_container_width=True)
         with st.spinner(text="⏳ Generating sleep consistency plot...", show_time=True):
-            fig2 = line_charts.make_sleep_consistency_plot()
+            fig2 = line_graphs.make_sleep_consistency_plot()
             st.pyplot(fig2, use_container_width=True)
         avg_consistency = stats['avg_sleep_consistency']
         if avg_consistency >= 80:
@@ -111,7 +111,7 @@ def do_recovery_strain_section(stats):
             fig1 = heat_maps.plot_recovery_heatmap()
             st.pyplot(fig1, use_container_width=True)
         with st.spinner(text="⏳ Generating recovery plot...", show_time=True):
-            fig1 = line_charts.make_recovery_plot()
+            fig1 = line_graphs.make_recovery_plot()
             st.pyplot(fig1, use_container_width=True)
         avg_recovery = stats['avg_recovery']
         if avg_recovery >= 72.5:
@@ -137,7 +137,7 @@ def do_recovery_strain_section(stats):
             fig2 = heat_maps.plot_strain_heatmap()
             st.pyplot(fig2, use_container_width=True)
         with st.spinner(text="⏳ Generating strain plot...", show_time=True):
-            fig2 = line_charts.make_strain_plot()
+            fig2 = line_graphs.make_strain_plot()
             st.pyplot(fig2, use_container_width=True)
         avg_strain = stats['avg_strain']
         if avg_strain >= 14:
@@ -180,7 +180,8 @@ def main_app():
 
     # Get basic statistics
     stats = main.get_basic_stats()
-    
+    deltas = main.get_stats_deltas()
+
     st.markdown("### 📊 Dashboard Overview")
     col1, col2 = st.columns(2)
     with col1:
@@ -191,15 +192,21 @@ def main_app():
     st.markdown("#### This Week's Key Metrics")
     col3, col4, col5, col6, col7 = st.columns(5)
     with col3:
-        st.metric("**😴 Avg Sleep Sufficiency**", f"{stats['avg_hours_vs_needed']:.2f}%")
+        st.metric("**😴 Avg Sleep Sufficiency**", f"{stats['avg_hours_vs_needed']:.2f}%", 
+                  delta=deltas['avg_hours_vs_needed'])
     with col4:
-        st.metric("**⏰ Avg Sleep Consistency**", f"{stats['avg_sleep_consistency']:.2f}%")
+        st.metric("**⏰ Avg Sleep Consistency**", f"{stats['avg_sleep_consistency']:.2f}%", 
+                  delta=deltas['avg_sleep_consistency'])
     with col5:
-        st.metric("**🔋 Avg Recovery**", f"{stats['avg_recovery']:.2f}%")
+        st.metric("**🔋 Avg Recovery**", f"{stats['avg_recovery']:.2f}%",
+                  delta=deltas['avg_recovery'])
     with col6:
-        st.metric("**💪 Avg Strain**", f"{stats['avg_strain']:.2f}")
+        st.metric("**💪 Avg Strain**", f"{stats['avg_strain']:.2f}",
+                   delta=deltas['avg_strain'])
+
     with col7:
-        st.metric("**❤️ Avg HRV**", f"{stats['avg_hrv']:.2f} ms")
+        st.metric("**❤️ Avg HRV**", f"{stats['avg_hrv']:.2f} ms",
+                   delta=deltas['avg_hrv'])
     
     # =============================================================================================
     # ======================================= DATA SECTION ========================================       
