@@ -132,9 +132,9 @@ def do_recovery_strain_section(stats):
         fig2 = line_charts.make_strain_plot()
         st.pyplot(fig2, use_container_width=True)
         avg_strain = stats['avg_strain']
-        if avg_strain >= 80:
+        if avg_strain >= 14:
             st.success(f"🌟 Optimal! My average strain this week was {avg_strain:.2f}%")
-        elif avg_strain >= 70:
+        elif avg_strain >= 12.5:
             st.info(f"✅ Sufficient! My average strain this week was {avg_strain:.2f}%")
         else:
             st.warning(f"⚠️ Poor. My average strain this week was {avg_strain:.2f}%")
