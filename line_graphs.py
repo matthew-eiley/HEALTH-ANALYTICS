@@ -2,8 +2,10 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import styles
 
 FILENAME = "data.csv"
+COLORS = styles.COLORS
 
 def load_data():
     try:
@@ -134,29 +136,29 @@ def make_plot(col):
     
     # Add background coloring based on performance zones using your heatmap colors
     if col == 'hours_vs_needed':
-        ax.axhspan(92.5, 100, alpha=0.8, color=(0.180, 0.380, 0.188), zorder=0)  # Darker green
-        ax.axhspan(85, 92.5, alpha=0.8, color=(0.325, 0.635, 0.345), zorder=0)   # Dark green
-        ax.axhspan(77.5, 85, alpha=0.8, color=(0.427, 0.749, 0.455), zorder=0)   # Medium green
-        ax.axhspan(70, 77.5, alpha=0.8, color=(0.729, 0.925, 0.749), zorder=0)   # Light green
-        ax.axhspan(0, 70, alpha=0.8, color=(0.941, 0.949, 0.961), zorder=0)      # Light gray
+        ax.axhspan(92.5, 100, alpha=0.9, color=COLORS['col1'], zorder=0)  # Darker green
+        ax.axhspan(85, 92.5, alpha=0.9, color=COLORS['col2'], zorder=0)   # Dark green
+        ax.axhspan(77.5, 85, alpha=0.9, color=COLORS['col3'], zorder=0)   # Medium green
+        ax.axhspan(70, 77.5, alpha=0.9, color=COLORS['col4'], zorder=0)   # Light green
+        ax.axhspan(0, 70, alpha=0.9, color=COLORS['col5'], zorder=0)      # Light gray
     elif col == 'sleep_consistency':
-        ax.axhspan(90, 100, alpha=0.8, color=(0.180, 0.380, 0.188), zorder=0)    # Dark green
-        ax.axhspan(80, 90, alpha=0.8, color=(0.196, 0.455, 0.220), zorder=0)     # Dark green
-        ax.axhspan(70, 80, alpha=0.8, color=(0.427, 0.749, 0.455), zorder=0)     # Medium green
-        ax.axhspan(60, 70, alpha=0.8, color=(0.729, 0.925, 0.749), zorder=0)     # Light green
-        ax.axhspan(0, 60, alpha=0.8, color=(0.941, 0.949, 0.961), zorder=0)      # Light gray
+        ax.axhspan(90, 100, alpha=0.9, color=COLORS['col1'], zorder=0)    # Dark green
+        ax.axhspan(80, 90, alpha=0.9, color=COLORS['col2'], zorder=0)     # Dark green
+        ax.axhspan(70, 80, alpha=0.9, color=COLORS['col3'], zorder=0)     # Medium green
+        ax.axhspan(60, 70, alpha=0.9, color=COLORS['col4'], zorder=0)     # Light green
+        ax.axhspan(0, 60, alpha=0.9, color=COLORS['col5'], zorder=0)      # Light gray
     elif col == 'recovery':
-        ax.axhspan(87.5, 100, alpha=0.8, color=(0.180, 0.380, 0.188), zorder=0)  # Darker green
-        ax.axhspan(75, 87.5, alpha=0.8, color=(0.325, 0.635, 0.345), zorder=0)   # Dark green
-        ax.axhspan(62.5, 75, alpha=0.8, color=(0.427, 0.749, 0.455), zorder=0)   # Medium green
-        ax.axhspan(50, 62.5, alpha=0.8, color=(0.729, 0.925, 0.749), zorder=0)   # Light green
-        ax.axhspan(0, 50, alpha=0.8, color=(0.941, 0.949, 0.961), zorder=0)      # Light gray
+        ax.axhspan(87.5, 100, alpha=0.9, color=COLORS['col1'], zorder=0)  # Darker green
+        ax.axhspan(75, 87.5, alpha=0.9, color=COLORS['col2'], zorder=0)   # Dark green
+        ax.axhspan(62.5, 75, alpha=0.9, color=COLORS['col3'], zorder=0)   # Medium green
+        ax.axhspan(50, 62.5, alpha=0.9, color=COLORS['col4'], zorder=0)   # Light green
+        ax.axhspan(0, 50, alpha=0.9, color=COLORS['col5'], zorder=0)      # Light gray
     elif col == 'strain':
-        ax.axhspan(17.5, 21, alpha=0.8, color=(0.180, 0.380, 0.188), zorder=0)  # Darker green
-        ax.axhspan(14, 17.5, alpha=0.8, color=(0.325, 0.635, 0.345), zorder=0)   # Dark green
-        ax.axhspan(10.5, 14, alpha=0.8, color=(0.427, 0.749, 0.455), zorder=0)   # Medium green
-        ax.axhspan(7, 10.5, alpha=0.8, color=(0.729, 0.925, 0.749), zorder=0)   # Light green
-        ax.axhspan(0, 7, alpha=0.8, color=(0.941, 0.949, 0.961), zorder=0)      # Light gray
+        ax.axhspan(17.5, 21, alpha=0.9, color=COLORS['col1'], zorder=0)  # Darker green
+        ax.axhspan(14, 17.5, alpha=0.9, color=COLORS['col2'], zorder=0)   # Dark green
+        ax.axhspan(10.5, 14, alpha=0.9, color=COLORS['col3'], zorder=0)   # Medium green
+        ax.axhspan(7, 10.5, alpha=0.9, color=COLORS['col4'], zorder=0)   # Light green
+        ax.axhspan(0, 7, alpha=0.9, color=COLORS['col5'], zorder=0)      # Light gray
 
     # Set y-axis limits with some padding
     if col == 'strain':

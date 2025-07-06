@@ -40,7 +40,6 @@ def get_and_store_data():
 
 def get_basic_stats():    
     df = pd.read_csv(FILENAME, parse_dates=["date"])
-    
     stats = {
         'total_days': len(df),
         'last_updated': df.iloc[len(df)-1]["date"],
@@ -50,13 +49,10 @@ def get_basic_stats():
         'avg_strain': pd.to_numeric(df.tail(7)["strain"], errors='coerce').mean(),
         'avg_hrv': df.tail(7)["hrv"].mean()
     }
-    
     return stats
 
-def get_stats_deltas():    
+def get_prev_stats():
     df = pd.read_csv(FILENAME, parse_dates=["date"])
-    stats = get_basic_stats()
-    
     prev = {
         'avg_hours_vs_needed': df.iloc[-14:-7]["hours_vs_needed"].mean(),
         'avg_sleep_consistency': df.iloc[-14:-7]["sleep_consistency"].mean(),
@@ -64,7 +60,11 @@ def get_stats_deltas():
         'avg_strain': pd.to_numeric(df.iloc[-14:-7]["strain"], errors='coerce').mean(),
         'avg_hrv': df.iloc[-14:-7]["hrv"].mean()
     }
+    return prev
 
+def get_stats_deltas():    
+    stats = get_basic_stats()
+    prev = get_prev_stats()
     deltas = {
         'avg_hours_vs_needed': round(stats['avg_hours_vs_needed']-prev['avg_hours_vs_needed'], 1),
         'avg_sleep_consistency': round(stats['avg_sleep_consistency']-prev['avg_sleep_consistency'], 1),
@@ -72,7 +72,6 @@ def get_stats_deltas():
         'avg_strain': round(stats['avg_strain']-prev['avg_strain'], 1),
         'avg_hrv': round(stats['avg_hrv']-prev['avg_hrv'], 1)
     }
-    
     return deltas
 
 

@@ -2,8 +2,10 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import styles
 
 FILENAME = "data.csv"
+COLORS = styles.COLORS
 
 def load_data():
     try:
@@ -46,39 +48,48 @@ def create_weekday_plot(metric):
     def get_bar_color(value, metric_type):
         if metric_type == 'hours_vs_needed':
             if value >= 92.5:
-                return (0.180, 0.380, 0.188)  # Darker green
+                return COLORS['col1']  # Darker green
             elif value >= 85:
-                return (0.325, 0.635, 0.345)  # Dark green
+                return COLORS['col2']  # Dark green
             elif value >= 77.5:
-                return (0.427, 0.749, 0.455)  # Medium green
+                return COLORS['col3']  # Medium green
             elif value >= 70:
                 return (0.729, 0.925, 0.749)  # Light green
             else:
                 return (0.941, 0.949, 0.961)  # Light gray
         elif metric_type == 'sleep_consistency':
             if value >= 90:
-                return (0.180, 0.380, 0.188)  # Darker green
+                return COLORS['col1']  # Darker green
             elif value >= 80:
-                return (0.325, 0.635, 0.345)  # Dark green
+                return COLORS['col2']  # Dark green
             elif value >= 70:
-                return (0.427, 0.749, 0.455)  # Medium green
+                return COLORS['col3']  # Medium green
             elif value >= 60:
-                return (0.729, 0.925, 0.749)  # Light green
+                return COLORS['col4']  # Light green
             else:
-                return (0.941, 0.949, 0.961)  # Light gray
+                return COLORS['col5']  # Light gray
         elif metric_type == 'recovery':
             if value >= 87.5:
-                return (0.180, 0.380, 0.188)  # Darker green
+                return COLORS['col1']  # Darker green
             elif value >= 75:
-                return (0.325, 0.635, 0.345)  # Dark green
+                return COLORS['col2']  # Dark green
             elif value >= 62.5:
-                return (0.427, 0.749, 0.455)  # Medium green
+                return COLORS['col3']  # Medium green
             elif value >= 50:
-                return (0.729, 0.925, 0.749)  # Light green
+                return COLORS['col4']  # Light green
             else:
-                return (0.941, 0.949, 0.961)  # Light gray
-        else:  # strain or other metrics
-            return (0.427, 0.749, 0.455)  # Default medium green
+                return COLORS['col5']  # Light gray
+        else:  # strain
+            if value >= 17.5:
+                return COLORS['col1']  # Darker green
+            elif value >= 14:
+                return COLORS['col2']  # Dark green
+            elif value >= 10.5:
+                return COLORS['col3']  # Medium green
+            elif value >= 7:
+                return COLORS['col4']  # Light green
+            else:
+                return COLORS['col5']  # Light gray
     
     # Create bars with individual colors
     x_pos = np.arange(len(weekday_order))

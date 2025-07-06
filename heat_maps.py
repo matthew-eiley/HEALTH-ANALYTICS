@@ -3,8 +3,10 @@ import pandas as pd
 import os
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
+import styles
 
 FILENAME = "data.csv"
+COLORS = styles.COLORS
 
 def load_data():
     try:
@@ -21,62 +23,62 @@ def load_data():
 def get_hours_vs_needed_rgb(row):
     value = row["hours_vs_needed"]
     if pd.isna(value):
-        return (0.235, 0.235, 0.235)  # Dark gray for missing data
+        return COLORS['col0']  # Dark gray for missing data
     elif value >= 92.5:
-        return (0.180, 0.380, 0.188)  # Darker green
+        return COLORS['col1']  # Darker green
     elif value >= 85:
-        return (0.325, 0.635, 0.345)  # Dark green
+        return COLORS['col2']  # Dark green
     elif value >= 77.5:
-        return (0.427, 0.749, 0.455)  # Medium green
+        return COLORS['col3']  # Medium green
     elif value >= 70:
-        return (0.729, 0.925, 0.749)  # Light green
+        return COLORS['col4']  # Light green
     else:
-        return (0.941, 0.949, 0.961)  # Light gray
+        return COLORS['col5']  # Light gray
 
 def get_sleep_consistency_rgb(row):
     value = row["sleep_consistency"]
     if pd.isna(value):
-        return (0.235, 0.235, 0.235)  # Dark gray for missing data
+        return COLORS['col0']  # Dark gray for missing data
     elif value >= 90:
-        return (0.180, 0.380, 0.188)  # Dark green
+        return COLORS['col1']  # Darker green
     elif value >= 80:
-        return (0.325, 0.635, 0.345)  # Dark green
+        return COLORS['col2']  # Dark green
     elif value >= 70:
-        return (0.427, 0.749, 0.455)  # Medium green
+        return COLORS['col3']  # Medium green
     elif value >= 60:
-        return (0.729, 0.925, 0.749)  # Light green
+        return COLORS['col4']  # Light green
     else:
-        return (0.941, 0.949, 0.961)  # Light gray
+        return COLORS['col5']  # Light gray
 
 def get_recovery_rgb(row):
     value = row["recovery"]
     if pd.isna(value):
-        return (0.235, 0.235, 0.235)  # Dark gray for missing data
+        return COLORS['col0']  # Dark gray for missing data
     elif value >= 87.5:
-        return (0.180, 0.380, 0.188)  # Darker green
+        return COLORS['col1']  # Darker green
     elif value >= 75:
-        return (0.325, 0.635, 0.345)  # Dark green
+        return COLORS['col2']  # Dark green
     elif value >= 62.5:
-        return (0.427, 0.749, 0.455)  # Medium green
+        return COLORS['col3']  # Medium green
     elif value >= 50:
-        return (0.729, 0.925, 0.749)  # Light green
+        return COLORS['col4']  # Light green
     else:
-        return (0.941, 0.949, 0.961)  # Light gray
+        return COLORS['col5']  # Light gray
 
 def get_strain_rgb(row):
     value = row["strain"]
     if pd.isna(value):
-        return (0.235, 0.235, 0.235)  # Dark gray for missing data
+        return COLORS['col0']  # Dark gray for missing data
     elif value >= 17.5:
-        return (0.180, 0.380, 0.188)  # Darker green
+        return COLORS['col1']  # Darker green
     elif value >= 14:
-        return (0.325, 0.635, 0.345)  # Dark green
+        return COLORS['col2']  # Dark green
     elif value >= 10.5:
-        return (0.427, 0.749, 0.455)  # Medium green
+        return COLORS['col3']  # Medium green
     elif value >= 7:
-        return (0.729, 0.925, 0.749)  # Light green
+        return COLORS['col4']  # Light green
     else:
-        return (0.941, 0.949, 0.961)  # Light gray
+        return COLORS['col5']  # Light gray
 
 def get_heatmap_start_date():
     """
