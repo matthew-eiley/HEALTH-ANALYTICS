@@ -121,14 +121,14 @@ def make_plot(col):
                   width=0.5)
     
     legend = ax.legend(loc='upper center', 
-                      bbox_to_anchor=(0.5, 1.1),
+                      bbox_to_anchor=(0.5, 1.08),
                       ncol=3,
                       frameon=True,
                       fancybox=True,
                       fontsize=10,
                       framealpha=0.95)
-    legend.get_frame().set_facecolor("#6dbf74")
-    legend.get_frame().set_edgecolor(colors['grid'])
+    legend.get_frame().set_facecolor(COLORS['col3'])
+    legend.get_frame().set_edgecolor(COLORS['col1'])
     
     # Remove top and right spines for cleaner look
     ax.spines['top'].set_visible(False)
