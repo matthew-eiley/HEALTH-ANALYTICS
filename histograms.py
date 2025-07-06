@@ -12,7 +12,7 @@ def load_data():
             return None
         
         df = pd.read_csv(FILENAME, usecols=["date", "hours_vs_needed", "sleep_consistency", "recovery", "strain"], parse_dates=["date"])
-        return df
+        return df.iloc[-61:] # only include past two months
     except Exception as e:
         print(f"Error loading data: {e}")
         return None
