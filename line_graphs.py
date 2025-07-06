@@ -6,6 +6,10 @@ import styles
 
 FILENAME = "data.csv"
 COLORS = styles.COLORS
+SUFFICIENCY_RANGES = styles.SUFFICIENCY_RANGES
+CONSISTENCY_RANGES = styles.CONSISTENCY_RANGES
+RECOVERY_RANGES = styles.RECOVERY_RANGES
+STRAIN_RANGES = styles.STRAIN_RANGES
 
 def load_data():
     try:
@@ -14,7 +18,7 @@ def load_data():
             return None
         
         df = pd.read_csv(FILENAME, usecols=["date", "hours_vs_needed", "sleep_consistency", "recovery", "strain"], parse_dates=["date"])
-        return df
+        return df.iloc[-365:]
     except Exception as e:
         print(f"Error loading data: {e}")
         return None
@@ -136,29 +140,29 @@ def make_plot(col):
     
     # Add background coloring based on performance zones using your heatmap colors
     if col == 'hours_vs_needed':
-        ax.axhspan(92.5, 100, alpha=0.9, color=COLORS['col1'], zorder=0)  # Darker green
-        ax.axhspan(85, 92.5, alpha=0.9, color=COLORS['col2'], zorder=0)   # Dark green
-        ax.axhspan(77.5, 85, alpha=0.9, color=COLORS['col3'], zorder=0)   # Medium green
-        ax.axhspan(70, 77.5, alpha=0.9, color=COLORS['col4'], zorder=0)   # Light green
-        ax.axhspan(0, 70, alpha=0.9, color=COLORS['col5'], zorder=0)      # Light gray
+        ax.axhspan(SUFFICIENCY_RANGES['tier1'], SUFFICIENCY_RANGES['tier0'], alpha=0.9, color=COLORS['col1'], zorder=0)  # Darker green
+        ax.axhspan(SUFFICIENCY_RANGES['tier2'], SUFFICIENCY_RANGES['tier1'], alpha=0.9, color=COLORS['col2'], zorder=0)   # Dark green
+        ax.axhspan(SUFFICIENCY_RANGES['tier3'], SUFFICIENCY_RANGES['tier2'], alpha=0.9, color=COLORS['col3'], zorder=0)   # Medium green
+        ax.axhspan(SUFFICIENCY_RANGES['tier4'], SUFFICIENCY_RANGES['tier3'], alpha=0.9, color=COLORS['col4'], zorder=0)   # Light green
+        ax.axhspan(SUFFICIENCY_RANGES['tier5'], SUFFICIENCY_RANGES['tier4'], alpha=0.9, color=COLORS['col5'], zorder=0)      # Light gray
     elif col == 'sleep_consistency':
-        ax.axhspan(90, 100, alpha=0.9, color=COLORS['col1'], zorder=0)    # Dark green
-        ax.axhspan(80, 90, alpha=0.9, color=COLORS['col2'], zorder=0)     # Dark green
-        ax.axhspan(70, 80, alpha=0.9, color=COLORS['col3'], zorder=0)     # Medium green
-        ax.axhspan(60, 70, alpha=0.9, color=COLORS['col4'], zorder=0)     # Light green
-        ax.axhspan(0, 60, alpha=0.9, color=COLORS['col5'], zorder=0)      # Light gray
+        ax.axhspan(CONSISTENCY_RANGES['tier1'], CONSISTENCY_RANGES['tier0'], alpha=0.9, color=COLORS['col1'], zorder=0)  # Darker green
+        ax.axhspan(CONSISTENCY_RANGES['tier2'], CONSISTENCY_RANGES['tier1'], alpha=0.9, color=COLORS['col2'], zorder=0)   # Dark green
+        ax.axhspan(CONSISTENCY_RANGES['tier3'], CONSISTENCY_RANGES['tier2'], alpha=0.9, color=COLORS['col3'], zorder=0)   # Medium green
+        ax.axhspan(CONSISTENCY_RANGES['tier4'], CONSISTENCY_RANGES['tier3'], alpha=0.9, color=COLORS['col4'], zorder=0)   # Light green
+        ax.axhspan(CONSISTENCY_RANGES['tier5'], CONSISTENCY_RANGES['tier4'], alpha=0.9, color=COLORS['col5'], zorder=0)      # Light gray
     elif col == 'recovery':
-        ax.axhspan(87.5, 100, alpha=0.9, color=COLORS['col1'], zorder=0)  # Darker green
-        ax.axhspan(75, 87.5, alpha=0.9, color=COLORS['col2'], zorder=0)   # Dark green
-        ax.axhspan(62.5, 75, alpha=0.9, color=COLORS['col3'], zorder=0)   # Medium green
-        ax.axhspan(50, 62.5, alpha=0.9, color=COLORS['col4'], zorder=0)   # Light green
-        ax.axhspan(0, 50, alpha=0.9, color=COLORS['col5'], zorder=0)      # Light gray
+        ax.axhspan(RECOVERY_RANGES['tier1'], RECOVERY_RANGES['tier0'], alpha=0.9, color=COLORS['col1'], zorder=0)  # Darker green
+        ax.axhspan(RECOVERY_RANGES['tier2'], RECOVERY_RANGES['tier1'], alpha=0.9, color=COLORS['col2'], zorder=0)   # Dark green
+        ax.axhspan(RECOVERY_RANGES['tier3'], RECOVERY_RANGES['tier2'], alpha=0.9, color=COLORS['col3'], zorder=0)   # Medium green
+        ax.axhspan(RECOVERY_RANGES['tier4'], RECOVERY_RANGES['tier3'], alpha=0.9, color=COLORS['col4'], zorder=0)   # Light green
+        ax.axhspan(RECOVERY_RANGES['tier5'], RECOVERY_RANGES['tier4'], alpha=0.9, color=COLORS['col5'], zorder=0)      # Light gray
     elif col == 'strain':
-        ax.axhspan(17.5, 21, alpha=0.9, color=COLORS['col1'], zorder=0)  # Darker green
-        ax.axhspan(14, 17.5, alpha=0.9, color=COLORS['col2'], zorder=0)   # Dark green
-        ax.axhspan(10.5, 14, alpha=0.9, color=COLORS['col3'], zorder=0)   # Medium green
-        ax.axhspan(7, 10.5, alpha=0.9, color=COLORS['col4'], zorder=0)   # Light green
-        ax.axhspan(0, 7, alpha=0.9, color=COLORS['col5'], zorder=0)      # Light gray
+        ax.axhspan(STRAIN_RANGES['tier1'], STRAIN_RANGES['tier0'], alpha=0.9, color=COLORS['col1'], zorder=0)  # Darker green
+        ax.axhspan(STRAIN_RANGES['tier2'], STRAIN_RANGES['tier1'], alpha=0.9, color=COLORS['col2'], zorder=0)   # Dark green
+        ax.axhspan(STRAIN_RANGES['tier3'], STRAIN_RANGES['tier2'], alpha=0.9, color=COLORS['col3'], zorder=0)   # Medium green
+        ax.axhspan(STRAIN_RANGES['tier4'], STRAIN_RANGES['tier3'], alpha=0.9, color=COLORS['col4'], zorder=0)   # Light green
+        ax.axhspan(STRAIN_RANGES['tier5'], STRAIN_RANGES['tier4'], alpha=0.9, color=COLORS['col5'], zorder=0)      # Light gray
 
     # Set y-axis limits with some padding
     if col == 'strain':

@@ -7,6 +7,40 @@ COLORS = {
     'col5': (0.941, 0.949, 0.961)
 }
 
+SUFFICIENCY_RANGES = {
+    'tier0': 100,
+    'tier1': 92.5,
+    'tier2': 85,
+    'tier3': 77.5,
+    'tier4': 70,
+    'tier5': 0,
+}
+CONSISTENCY_RANGES = {
+    'tier0': 100,
+    'tier1': 90,
+    'tier2': 80,
+    'tier3': 70,
+    'tier4': 60,
+    'tier5': 0,
+}
+RECOVERY_RANGES = {
+    'tier0': 100,
+    'tier1': 87.5,
+    'tier2': 75,
+    'tier3': 62.5,
+    'tier4': 50,
+    'tier5': 0,
+}
+STRAIN_RANGES = {
+    'tier0': 21,
+    'tier1': 17.5,
+    'tier2': 14,
+    'tier3': 10.5,
+    'tier4': 7,
+    'tier5': 0,
+}
+
+
 STYLES = """
 <style>
     /* Import Google Fonts */

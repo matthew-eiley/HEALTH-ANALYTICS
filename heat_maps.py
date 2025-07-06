@@ -7,6 +7,10 @@ import styles
 
 FILENAME = "data.csv"
 COLORS = styles.COLORS
+SUFFICIENCY_RANGES = styles.SUFFICIENCY_RANGES
+CONSISTENCY_RANGES = styles.CONSISTENCY_RANGES
+RECOVERY_RANGES = styles.RECOVERY_RANGES
+STRAIN_RANGES = styles.STRAIN_RANGES
 
 def load_data():
     try:
@@ -24,13 +28,13 @@ def get_hours_vs_needed_rgb(row):
     value = row["hours_vs_needed"]
     if pd.isna(value):
         return COLORS['col0']  # Dark gray for missing data
-    elif value >= 92.5:
+    elif value >= SUFFICIENCY_RANGES['tier1']:
         return COLORS['col1']  # Darker green
-    elif value >= 85:
+    elif value >= SUFFICIENCY_RANGES['tier2']:
         return COLORS['col2']  # Dark green
-    elif value >= 77.5:
+    elif value >= SUFFICIENCY_RANGES['tier3']:
         return COLORS['col3']  # Medium green
-    elif value >= 70:
+    elif value >= SUFFICIENCY_RANGES['tier4']:
         return COLORS['col4']  # Light green
     else:
         return COLORS['col5']  # Light gray
@@ -39,13 +43,13 @@ def get_sleep_consistency_rgb(row):
     value = row["sleep_consistency"]
     if pd.isna(value):
         return COLORS['col0']  # Dark gray for missing data
-    elif value >= 90:
+    elif value >= CONSISTENCY_RANGES['tier1']:
         return COLORS['col1']  # Darker green
-    elif value >= 80:
+    elif value >= CONSISTENCY_RANGES['tier2']:
         return COLORS['col2']  # Dark green
-    elif value >= 70:
+    elif value >= CONSISTENCY_RANGES['tier3']:
         return COLORS['col3']  # Medium green
-    elif value >= 60:
+    elif value >= CONSISTENCY_RANGES['tier4']:
         return COLORS['col4']  # Light green
     else:
         return COLORS['col5']  # Light gray
@@ -54,13 +58,13 @@ def get_recovery_rgb(row):
     value = row["recovery"]
     if pd.isna(value):
         return COLORS['col0']  # Dark gray for missing data
-    elif value >= 87.5:
+    elif value >= RECOVERY_RANGES['tier1']:
         return COLORS['col1']  # Darker green
-    elif value >= 75:
+    elif value >= RECOVERY_RANGES['tier2']:
         return COLORS['col2']  # Dark green
-    elif value >= 62.5:
+    elif value >= RECOVERY_RANGES['tier3']:
         return COLORS['col3']  # Medium green
-    elif value >= 50:
+    elif value >= RECOVERY_RANGES['tier4']:
         return COLORS['col4']  # Light green
     else:
         return COLORS['col5']  # Light gray
@@ -69,13 +73,13 @@ def get_strain_rgb(row):
     value = row["strain"]
     if pd.isna(value):
         return COLORS['col0']  # Dark gray for missing data
-    elif value >= 17.5:
+    elif value >= STRAIN_RANGES['tier1']:
         return COLORS['col1']  # Darker green
-    elif value >= 14:
+    elif value >= STRAIN_RANGES['tier2']:
         return COLORS['col2']  # Dark green
-    elif value >= 10.5:
+    elif value >= STRAIN_RANGES['tier3']:
         return COLORS['col3']  # Medium green
-    elif value >= 7:
+    elif value >= STRAIN_RANGES['tier4']:
         return COLORS['col4']  # Light green
     else:
         return COLORS['col5']  # Light gray
