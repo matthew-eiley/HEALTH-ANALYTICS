@@ -238,40 +238,54 @@ STYLES = """
     }
 </style>"""
 
-SLEEP_DESC = """
+SLEEP_SUFFICIENCY_DESC = """
     <div class="content-card">
         <p style="font-size: 1rem; line-height: 1.75; color: #4a5568;">
-            Sleep is one of the most critical factors influencing your recovery, performance, and 
-            overall health. WHOOP measures your sleep in two key dimensions: <strong>Sleep Sufficiency</strong> and 
-            <strong>Sleep Consistency</strong>. Sleep Sufficiency reflects how much sleep you got compared to your 
-            personalized sleep need, which adjusts daily based on your recent strain, baseline sleep, 
-            and other recovery demands. Rather than applying a fixed 7-9 hour standard, WHOOP calculates 
-            how much sleep your body truly requires each night. Falling short, even by a small percentage, 
-            can lead to accumulating sleep debt and diminished recovery over time. Complementing this, 
-            Sleep Consistency tracks how aligned your bedtime and wake times are across consecutive days. 
-            Even if you're getting the right quantity of sleep, irregular timing can disrupt your circadian 
-            rhythm, impair hormonal balance, and reduce time spent in restorative deep and REM sleep. 
-            Together, these two metrics provide a deeper, more personalized understanding of your sleep 
-            quality and its impact on daily readiness.
+            <strong>Sleep Sufficiency</strong> reflects how much sleep you received compared to what your body needed 
+            on a given night. Rather than applying a generic 7-9 hour guideline, WHOOP calculates your individualized 
+            sleep need based on recent strain, accumulated sleep debt, and recovery metrics. Achieving or exceeding this 
+            target helps your body fully recover and maintain optimal performance. Even small nightly deficits can lead to 
+            mounting sleep debt, increasing physiological stress, reducing cognitive clarity, and impairing overall readiness. 
+            Monitoring Sleep Sufficiency over time helps ensure your sleep quantity supports your activity levels and recovery demands.
         </p>
     </div>
     """
 
-RECOVERY_STRAIN_DESC = """
+SLEEP_CONSISTENCY_DESC = """
     <div class="content-card">
         <p style="font-size: 1rem; line-height: 1.75; color: #4a5568;">
-            WHOOP measures your Recovery as a dynamic indicator of how ready your body is to perform, 
-                based on biometric signals such as heart rate variability (HRV), resting heart rate (RHR), 
-                respiratory rate, and sleep quality. Expressed as a percentage and color-coded (green, 
-                yellow, or red), Recovery reflects how well your body has adapted to recent strain and 
-                whether you're in a state of readiness or need rest. High Recovery signals strong parasympathetic 
-                activity and good physiological balance, while low Recovery can indicate stress, fatigue, illness, 
-                or inadequate sleep. Complementing this is Strain, WHOOP's cumulative measure of cardiovascular 
-                load throughout the day. Unlike step counts or calories, Strain is personalized based on your fitness 
-                level and previous activity, allowing you to train in alignment with your body's current capacity. 
-                By comparing daily Strain to your Recovery, you gain insight into whether you're training optimally, 
-                overreaching, or undertraining — enabling smarter decisions for performance, fitness gains, and long-term 
-                resilience.
+            <strong>Sleep Consistency</strong> tracks how stable your bedtime and wake-up times are across consecutive days. 
+            WHOOP evaluates consistency by comparing each night's sleep window to the prior four nights. Maintaining a consistent 
+            schedule, even if your total sleep hours vary slightly, helps regulate your circadian rhythm, improves hormonal balance, 
+            and enhances time spent in restorative deep and REM sleep. Irregular schedules, such as social jet lag or weekend 
+            catch-up sleep, can disrupt recovery and reduce overall sleep efficiency. High sleep consistency supports both physical 
+            recovery and mental sharpness.
+        </p>
+    </div>
+    """
+
+RECOVERY_DESC = """
+    <div class="content-card">
+        <p style="font-size: 1rem; line-height: 1.75; color: #4a5568;">
+            <strong>Recovery</strong> is WHOOP's primary readiness metric, measuring how prepared your body is to perform 
+            on any given day. It synthesizes key physiological signals such as heart rate variability (HRV), resting heart rate (RHR), 
+            respiratory rate, and sleep performance into a single percentage score. A high Recovery score indicates strong autonomic 
+            balance, effective rest, and resilience to recent stress or strain. Conversely, a low score may suggest fatigue, illness, 
+            overtraining, or inadequate recovery. Monitoring Recovery day-to-day helps guide whether to push, maintain, or rest, empowering 
+            smarter decisions for long-term physical and mental performance.
+        </p>
+    </div>
+    """
+
+STRAIN_DESC = """
+    <div class="content-card">
+        <p style="font-size: 1rem; line-height: 1.75; color: #4a5568;">
+            <strong>Strain</strong> is WHOOP's personalized measure of cardiovascular and metabolic load, reflecting how much effort 
+            you've exerted throughout the day. Calculated on a scale from 0 to 21, Strain accumulates based on workout intensity, 
+            heart rate elevation, and sustained physical activity. Unlike simple step counts or calorie burn, WHOOP calibrates 
+            Strain to your unique physiology, meaning the same activity may produce different strain levels for different people. 
+            By comparing daily Strain to your Recovery score, you can ensure your training aligns with your body's readiness, 
+            avoid overreaching, and build sustainable gains over time.
         </p>
     </div>
     """

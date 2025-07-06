@@ -24,7 +24,7 @@ def do_sufficiency_tab():
             <h2 class="section-title">😴 Sleep Sufficiency Analysis</h2>
         </div>`
         """, unsafe_allow_html=True)
-    st.markdown(styles.SLEEP_DESC, unsafe_allow_html=True)
+    st.markdown(styles.SLEEP_SUFFICIENCY_DESC, unsafe_allow_html=True)
     st.markdown("""
     <div style="text-align: center;">
         <a href="https://www.whoop.com/us/en/thelocker/how-much-sleep-do-i-need/?srsltid=AfmBOoo1g8Wxz-9LwJZsyYMWgTiI9bVAE8jH6TXdonBwJTdsJ-49DJQY" class="doc-link" target="_blank">
@@ -37,8 +37,8 @@ def do_sufficiency_tab():
         fig1 = line_graphs.make_sleep_sufficiency_plot()
         fig2 = heat_maps.plot_sufficiency_heatmap()
         fig3 = histograms.create_sleep_sufficiency_weekday_plot()
-        st.pyplot(fig1, use_container_width=True)
         st.pyplot(fig2, use_container_width=True)
+        st.pyplot(fig1, use_container_width=True)
         st.pyplot(fig3, use_container_width=True)
 
 # =================================================================================================
@@ -51,7 +51,7 @@ def do_consistency_tab():
             <h2 class="section-title">⏰ Sleep Consistency Analysis</h2>
         </div>
         """, unsafe_allow_html=True)
-    st.markdown(styles.SLEEP_DESC, unsafe_allow_html=True)
+    st.markdown(styles.SLEEP_CONSISTENCY_DESC, unsafe_allow_html=True)
     st.markdown("""
         <div style="text-align: center;">
             <a href="https://www.whoop.com/us/en/thelocker/new-feature-sleep-consistency-why-we-track-it/?srsltid=AfmBOoptQmcwOq7fRmA_bREINiwvGZkwuZUvaNW_OVazsHdu2omb-FPj" class="doc-link" target="_blank">
@@ -78,7 +78,7 @@ def do_recovery_tab():
             <h2 class="section-title">🔋 Recovery Analysis</h2>
         </div>`
         """, unsafe_allow_html=True)
-    st.markdown(styles.RECOVERY_STRAIN_DESC, unsafe_allow_html=True)
+    st.markdown(styles.RECOVERY_DESC, unsafe_allow_html=True)
     st.markdown("""
         <div style="text-align: center;">
             <a href="https://www.whoop.com/eu/en/thelocker/how-does-whoop-recovery-work-101/?srsltid=AfmBOorJ-ddeY6KL9P_uVgBrrj_bFIhZ7I6tIiIbCJiCe3Wqc6FqDZgk" class="doc-link" target="_blank">
@@ -105,7 +105,7 @@ def do_strain_tab():
             <h2 class="section-title">💪 Strain Analysis</h2>
         </div>
         """, unsafe_allow_html=True)
-    st.markdown(styles.RECOVERY_STRAIN_DESC, unsafe_allow_html=True)
+    st.markdown(styles.STRAIN_DESC, unsafe_allow_html=True)
     st.markdown("""
         <div style="text-align: center;">
             <a href="https://www.whoop.com/us/en/thelocker/how-does-whoop-strain-work-101/?srsltid=AfmBOopjXT4iy1QQTkIskw19chbwJkkfTVwzED97Jb5TTaOxoeiNRGo5" class="doc-link" target="_blank">
