@@ -88,7 +88,8 @@ def get_heatmap_start_date():
     """
     Get the start date for the heatmap (52 weeks ago from this Monday)
     """
-    today = datetime.today().date()
+    # today = datetime.today().date()
+    today = load_data().iloc[-1]['date'].date()
     # Go to Monday of this week
     this_monday = today - timedelta(days=today.weekday())  # Monday=0
     # Go back 51 full weeks
